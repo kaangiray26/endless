@@ -1,0 +1,72 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css");
+
+html {
+    margin: 0;
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    height: 100%;
+    background-color: #fff
+}
+
+#app {
+    height: 100%;
+}
+
+.complete-view {
+    height: 100vh;
+    /* Fallback for browsers that do not support Custom Properties */
+    height: calc(var(--vh, 1vh) * 100);
+}
+
+.side-view {
+    flex: 1 1 auto;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.content-view {
+    flex: 1 1 auto;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.player-view {
+    flex: 0 1;
+}
+
+.theme-shadow {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.click-effect:active {
+    opacity: 0.75;
+}
+
+.list-div {
+    height: 48px !important;
+}
+
+.overlay {
+    background: linear-gradient(0deg, #00000088 30%, #ffffff44 100%);
+}
+
+.cover {
+    object-fit: cover;
+    width: 100%;
+}
+
+.separator::after {
+    content: "—";
+}
+
+.icon {
+    width: 48px;
+    height: 48px;
+}

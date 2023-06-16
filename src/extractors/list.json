@@ -1,0 +1,19 @@
+{
+    "extractors": [
+        {
+            "name": "Wikipedia",
+            "image": "https://en.wikipedia.org/static/favicon/wikipedia.ico",
+            "path": "/discover/wikipedia"
+        },
+        {
+            "name": "Hacker News",
+            "image": "https://news.ycombinator.com/favicon.ico",
+            "path": "/discover/hacker-news"
+        },
+        {
+            "name": "Cumhuriyet",
+            "image": "https://www.cumhuriyet.com.tr/Content/images/icons/favicon.ico",
+            "path": "/discover/cumhuriyet"
+        }
+    ]
+}

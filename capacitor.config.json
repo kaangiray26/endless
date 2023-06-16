@@ -1,0 +1,13 @@
+{
+  "appId": "social.buzl.uk",
+  "appName": "social",
+  "webDir": "src/dist",
+  "server": {
+    "androidScheme": "https"
+  },
+  "plugins": {
+    "CapacitorHttp": {
+      "enabled": true
+    }
+  }
+}
