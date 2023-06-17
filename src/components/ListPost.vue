@@ -7,38 +7,51 @@
             <div class="px-2 py-1">
                 <span>{{ obj.title }}</span>
             </div>
-            <div>
-                <img class="img-fluid" :src="image" @error="placeholder">
+            <div class="d-flex square">
+                <img class="img-post" :src="obj.image" @error="placeholder">
             </div>
             <div class="d-flex justify-content-between bg-dark">
                 <span class="text-light font-monospace ms-2">{{ obj.points }} pts</span>
             </div>
             <div class="d-flex justify-content-around bg-light rounded">
-                <button type="button" class="btn btn-light bi bi-heart"></button>
-                <button type="button" class="btn btn-light bi bi-chat" @click="comments"></button>
-                <button type="button" class="btn btn-light bi bi-bookmark"></button>
-                <button type="button" class="btn btn-light bi bi-share"></button>
-                <button type="button" class="btn btn-light bi bi-box-arrow-up-right" @click="redirect"></button>
+                <button type="button" class="btn btn-touch bi bi-heart"></button>
+                <button type="button" class="btn btn-touch bi bi-chat" @click="comments"></button>
+                <button type="button" class="btn btn-touch bi"
+                    :class="{ 'bi-bookmark-fill': is_saved, 'bi-bookmark': !is_saved }" @click="save"></button>
+                <button type="button" class="btn btn-touch bi bi-share" @click="share"></button>
+                <button type="button" class="btn btn-touch bi bi-box-arrow-up-right" @click="redirect"></button>
             </div>
         </div>
     </div>
 </template>
 
 <script setup>
-import { ref, onBeforeMount } from 'vue';
+import { ref, onBeforeMount, onActivated } from 'vue';
 import { useRouter } from 'vue-router';
 import { CapacitorHttp } from '@capacitor/core';
 import { Browser } from '@capacitor/browser';
+import { Share } from '@capacitor/share';
 
 const router = useRouter();
-
-const image = ref("/favicon.svg");
 const props = defineProps({
     obj: {
         type: Object,
         required: true
     }
 })
+
+const is_saved = ref(false);
+
+async function check_saved() {
+    let saved = localStorage.getItem("saved");
+    let data = saved ? JSON.parse(saved) : [];
+
+    if (data.find(item => item.page === props.obj.page)) {
+        is_saved.value = true;
+    } else {
+        is_saved.value = false;
+    }
+}
 
 async function get_preview() {
     let content = await CapacitorHttp.get({
@@ -48,6 +61,7 @@ async function get_preview() {
         .catch(err => null);
 
     if (!content) {
+        props.obj.image = "/favicon.svg";
         return
     }
 
@@ -55,7 +69,7 @@ async function get_preview() {
     let img = document.head.querySelector("meta[property='og:image']");
 
     if (img) {
-        image.value = img.content;
+        props.obj.image = img.content;
     }
 }
 
@@ -73,7 +87,38 @@ async function placeholder(obj) {
     obj.target.src = "/favicon.svg";
 }
 
+async function share() {
+    Share.share({
+        title: props.obj.title,
+        text: props.obj.title,
+        url: props.obj.url,
+        dialogTitle: "Share with friends"
+    })
+}
+
+async function save() {
+    let saved = localStorage.getItem("saved");
+    let data = saved ? JSON.parse(saved) : [];
+
+    if (data.find(item => item.page == props.obj.page)) {
+        // Remove element from the saved items
+        data = data.filter(item => item.page != props.obj.page);
+        localStorage.setItem("saved", JSON.stringify(data));
+        is_saved.value = false;
+        return
+    }
+
+    data.push(props.obj);
+    localStorage.setItem("saved", JSON.stringify(data));
+    is_saved.value = true;
+}
+
 onBeforeMount(() => {
+    check_saved();
     get_preview();
+})
+
+onActivated(() => {
+    check_saved();
 })
 </script>

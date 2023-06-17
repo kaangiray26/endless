@@ -1,7 +1,7 @@
 <template>
     <div class="d-flex flex-column m-3">
         <div class="px-2">
-            <h1>Discover new pages</h1>
+            <h5>Discover new pages</h5>
         </div>
         <ul class="list-group theme-shadow">
             <li v-for="extractor in extractors" class="list-group-item list-group-item-action clickable click-effect p-0"
@@ -13,9 +13,6 @@
                     <div>
                         <h6 class="m-0">{{ extractor.name }}</h6>
                     </div>
-                    <!-- <div class="h-100 w-100 position-absolute d-flex justify-content-start align-items-center overlay">
-                        <h5 class="fw-bold text-white px-2 m-0">{{ extractor.name }}</h5>
-                    </div> -->
                 </div>
             </li>
         </ul>

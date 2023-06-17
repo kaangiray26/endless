@@ -1,6 +1,6 @@
 {
-  "appId": "social.buzl.uk",
-  "appName": "social",
+  "appId": "endless.buzl.uk",
+  "appName": "Endless",
   "webDir": "src/dist",
   "server": {
     "androidScheme": "https"

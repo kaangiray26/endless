@@ -70,3 +70,48 @@ body {
     width: 48px;
     height: 48px;
 }
+
+.img-post {
+    object-fit: cover;
+    width: 100%;
+}
+
+.square {
+    aspect-ratio: 1/1 !important;
+}
+
+.progress {
+    height: 0.2rem;
+}
+
+.progress-bar {
+    animation: loading 1s linear reverse infinite;
+    background-color: firebrick;
+}
+
+@keyframes loading {
+    0% {
+        width: 25%;
+        margin-left: -25%;
+    }
+
+    100% {
+        width: 25%;
+        margin-left: 100%;
+    }
+}
+
+.btn-touch {
+    border: 0 !important;
+}
+
+.btn-touch:active {
+    color: firebrick !important;
+}
+
+.img-saved {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    border-top-left-radius: var(--bs-border-radius) !important;
+}

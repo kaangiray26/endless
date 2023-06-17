@@ -1,4 +1,4 @@
-package social.buzl.uk;
+package endless.buzl.uk;
 
 import com.getcapacitor.BridgeActivity;
 

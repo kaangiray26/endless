@@ -1,5 +1,8 @@
 <template>
-    <Placeholder v-if="!item" />
+    <div v-if="!item" class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0"
+        aria-valuemax="100">
+        <div class="progress-bar"></div>
+    </div>
     <Post v-if="item" :obj="item" />
 </template>
 
@@ -8,7 +11,6 @@ import { ref, onBeforeMount } from 'vue';
 import { useRouter } from 'vue-router';
 import { extractor } from "/extractors/cumhuriyet.js";
 import Post from '/components/SinglePost.vue';
-import Placeholder from '/components/Placeholder.vue';
 
 const router = useRouter();
 
@@ -19,9 +21,7 @@ const id = router.currentRoute.value.params.id;
 
 async function setup() {
     let response = await ex.get_post(id);
-    console.log("Response:", response);
     if (!response) {
-        console.log("Error", response);
         return;
     }
 

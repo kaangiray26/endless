@@ -4,12 +4,16 @@ import Discover from "/components/Discover.vue"
 import Profile from "/components/Profile.vue"
 
 import WikipediaFeed from "/pages/Wikipedia/WikipediaFeed.vue"
+import WikipediaPost from "/pages/Wikipedia/WikipediaPost.vue"
 
 import HackerNewsFeed from "/pages/HackerNews/HackerNewsFeed.vue"
 import HackerNewsPost from "/pages/HackerNews/HackerNewsPost.vue"
 
 import CumhuriyetFeed from "/pages/Cumhuriyet/CumhuriyetFeed.vue"
 import CumhuriyetPost from "/pages/Cumhuriyet/CumhuriyetPost.vue"
+
+import GamingOnLinuxFeed from "/pages/GamingOnLinux/GamingOnLinuxFeed.vue"
+import GamingOnLinuxPost from "/pages/GamingOnLinux/GamingOnLinuxPost.vue"
 
 const routes = [
     {
@@ -25,7 +29,16 @@ const routes = [
             },
             {
                 path: "wikipedia",
-                component: WikipediaFeed
+                children: [
+                    {
+                        path: "",
+                        component: WikipediaFeed
+                    },
+                    {
+                        path: ":id",
+                        component: WikipediaPost
+                    }
+                ]
             },
             {
                 path: "hacker-news",
@@ -50,6 +63,19 @@ const routes = [
                     {
                         path: ":id",
                         component: CumhuriyetPost
+                    }
+                ]
+            },
+            {
+                path: "gaming-on-linux",
+                children: [
+                    {
+                        path: "",
+                        component: GamingOnLinuxFeed
+                    },
+                    {
+                        path: ":id+",
+                        component: GamingOnLinuxPost
                     }
                 ]
             }

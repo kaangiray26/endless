@@ -1,10 +1,10 @@
 apply plugin: 'com.android.application'
 
 android {
-    namespace "social.buzl.uk"
+    namespace "endless.buzl.uk"
     compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
-        applicationId "social.buzl.uk"
+        applicationId "endless.buzl.uk"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
