@@ -19,6 +19,11 @@
             "name": "GamingOnLinux",
             "image": "https://www.gamingonlinux.com/templates/default/images/favicons/favicon.ico",
             "path": "/discover/gaming-on-linux"
+        },
+        {
+            "name": "Darknet Diaries",
+            "image": "https://darknetdiaries.com/imgs/favicon.png",
+            "path": "/discover/darknet-diaries"
         }
     ]
 }

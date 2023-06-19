@@ -3,17 +3,15 @@
         aria-valuemax="100">
         <div class="progress-bar"></div>
     </div>
-    <div class="row row-cols-1 g-0 m-3 mb-0">
-        <div v-for="item in posts" class="col-12 mb-3">
-            <Post :obj="item" />
-        </div>
-    </div>
+    <ul class="list-group list-group-flush border-0 p-3 pt-0">
+        <Post :obj="item" v-for="item in posts" />
+    </ul>
 </template>
 
 <script setup>
 import { ref, onBeforeMount } from 'vue';
 import { extractor } from "/extractors/hacker-news.js";
-import Post from '/components/ListPost.vue';
+import Post from '/components/SingleShortPost.vue';
 
 const page = ref(0);
 const posts = ref([]);

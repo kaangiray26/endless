@@ -15,6 +15,8 @@ import CumhuriyetPost from "/pages/Cumhuriyet/CumhuriyetPost.vue"
 import GamingOnLinuxFeed from "/pages/GamingOnLinux/GamingOnLinuxFeed.vue"
 import GamingOnLinuxPost from "/pages/GamingOnLinux/GamingOnLinuxPost.vue"
 
+import DarknetDiariesFeed from "/pages/DarknetDiaries/DarknetDiariesFeed.vue"
+
 const routes = [
     {
         path: "/",
@@ -76,6 +78,15 @@ const routes = [
                     {
                         path: ":id+",
                         component: GamingOnLinuxPost
+                    }
+                ]
+            },
+            {
+                "path": "darknet-diaries",
+                children: [
+                    {
+                        path: "",
+                        component: DarknetDiariesFeed
                     }
                 ]
             }
