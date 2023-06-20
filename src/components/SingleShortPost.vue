@@ -2,7 +2,7 @@
     <li class="list-group-item border rounded clickable click-effect p-0 mt-3">
         <div class="d-flex">
             <div class="d-flex square p-1 me-1">
-                <img class="cover icon" :src="obj.image" @error="placeholder">
+                <img ref="target" class="cover icon" :src="obj.image" @error="placeholder" loading="lazy">
             </div>
             <div class="d-flex flex-fill align-items-center">
                 <h6 class="m-0">{{ obj.title }}</h6>
@@ -22,14 +22,17 @@
 <script setup>
 import { ref, onBeforeMount, onActivated } from 'vue';
 import { useRouter } from 'vue-router';
+import { useIntersectionObserver } from '@vueuse/core'
 import { CapacitorHttp } from '@capacitor/core';
 import { Browser } from '@capacitor/browser';
 import { Share } from '@capacitor/share';
 
-
 const router = useRouter();
 
+const target = ref(null);
 const is_saved = ref(false);
+const img_loaded = ref(false);
+
 const props = defineProps({
     obj: {
         type: Object,
@@ -42,7 +45,6 @@ async function placeholder(obj) {
 }
 
 async function comments() {
-    console.log("Opening:", props.obj.page);
     router.push(props.obj.page);
 }
 
@@ -59,23 +61,22 @@ async function check_saved() {
 
 
 async function get_preview() {
-    let content = await CapacitorHttp.get({
-        url: props.obj.url
-    })
-        .then(response => response.data)
-        .catch(err => null);
+    img_loaded.value = true;
 
-    if (!content) {
-        props.obj.image = "/favicon.svg";
+    console.log("IMAGE:", props.obj.image);
+
+    // If the image is already loaded, return
+    if (props.obj.image != "/favicon.svg") {
         return
     }
 
-    let document = new DOMParser().parseFromString(content, "text/html");
-    let img = document.head.querySelector("meta[property='og:image']");
-
-    if (img) {
-        props.obj.image = img.content;
-    }
+    props.obj.image = await CapacitorHttp.get({
+        url: props.obj.url
+    })
+        .then(res => res.data)
+        .then(str => new DOMParser().parseFromString(str, "text/html"))
+        .then(dom => dom.head.querySelector("meta[property='og:image']").content)
+        .catch(err => "/favicon.svg");
 }
 
 async function redirect() {
@@ -112,7 +113,14 @@ async function save() {
 
 onBeforeMount(() => {
     check_saved();
-    get_preview();
+
+    useIntersectionObserver(target, ([{ isIntersecting }]) => {
+        if (!img_loaded.value && isIntersecting) {
+            get_preview();
+        }
+    }, {
+        threshold: 0.5
+    })
 })
 
 onActivated(() => {

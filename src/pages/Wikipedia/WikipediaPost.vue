@@ -7,7 +7,7 @@
 </template>
 
 <script setup>
-import { ref, onBeforeMount } from 'vue';
+import { ref, onBeforeMount, onActivated } from 'vue';
 import { useRouter } from 'vue-router';
 import { extractor } from "/extractors/wikipedia.js";
 import Post from '/components/SinglePost.vue';
@@ -45,5 +45,9 @@ onBeforeMount(() => {
         return
     }
     setup();
+})
+
+onActivated(() => {
+    document.querySelector('.content-view').scrollTop = 0;
 })
 </script>

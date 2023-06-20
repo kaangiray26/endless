@@ -9,7 +9,7 @@ Endless is a social media curator that allows you to view all of your favorite w
 - [x] Hacker News
 - [x] GamingOnLinux
 - [x] Cumhuriyet
-- [ ] Darknet Diaries
+- [x] Darknet Diaries
 - [ ] Slashdot
 - [ ] Ars Technica
 - [ ] The Onion

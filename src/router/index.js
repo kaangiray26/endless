@@ -16,6 +16,7 @@ import GamingOnLinuxFeed from "/pages/GamingOnLinux/GamingOnLinuxFeed.vue"
 import GamingOnLinuxPost from "/pages/GamingOnLinux/GamingOnLinuxPost.vue"
 
 import DarknetDiariesFeed from "/pages/DarknetDiaries/DarknetDiariesFeed.vue"
+import DarknetDiariesPost from "/pages/DarknetDiaries/DarknetDiariesPost.vue"
 
 const routes = [
     {
@@ -87,6 +88,10 @@ const routes = [
                     {
                         path: "",
                         component: DarknetDiariesFeed
+                    },
+                    {
+                        path: ":id",
+                        component: DarknetDiariesPost
                     }
                 ]
             }
@@ -101,6 +106,11 @@ const routes = [
 const router = createRouter({
     history: createWebHistory(),
     routes
+});
+
+router.beforeEach((to, from, next) => {
+    localStorage.setItem(from.path, document.querySelector('.content-view').scrollTop);
+    next();
 });
 
 export default router

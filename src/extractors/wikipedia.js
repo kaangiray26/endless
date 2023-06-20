@@ -11,6 +11,16 @@ class extractor {
         })
             .then(res => res.data)
             .then(data => data.query.random)
+            .then(posts => posts.map(post => ({
+                title: post.title,
+                author: "Wikipedia",
+                url: `https://en.m.wikipedia.org/?curid=${post.id}`,
+                id: post.id,
+                dt: null,
+                points: 0,
+                image: "/favicon.svg",
+                page: "/discover/wikipedia/" + post.id,
+            })))
             .catch(err => []);
     }
 

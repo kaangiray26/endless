@@ -45,5 +45,10 @@ onActivated(() => {
     if (posts) {
         saved_posts.value = JSON.parse(posts);
     }
+
+    let scroll = localStorage.getItem(window.location.pathname);
+    if (scroll) {
+        document.querySelector('.content-view').scrollTop = parseInt(scroll);
+    }
 });
 </script>

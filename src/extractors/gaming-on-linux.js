@@ -3,11 +3,21 @@
 // Description: www.gamingonlinux.com/article_rss.php extractor
 
 class extractor {
-    async get_posts() {
-        return await fetch("https://www.gamingonlinux.com/article_rss.php")
+    async get_posts(page = 1) {
+        return await fetch(`https://www.gamingonlinux.com/all-articles/page=${page}`)
             .then(res => res.text())
-            .then(str => new window.DOMParser().parseFromString(str, "text/xml"))
-            .then(dom => [...dom.querySelectorAll("item")])
+            .then(str => new window.DOMParser().parseFromString(str, "text/html"))
+            .then(dom => [...dom.querySelectorAll(".article")])
+            .then(posts => posts.map(post => ({
+                title: post.querySelector(".title").textContent,
+                author: post.querySelector(".p-author").textContent,
+                url: post.querySelector(".u-url").href,
+                id: post.querySelector(".u-url").href.split(".com/").pop(),
+                dt: post.querySelector("time").dateTime,
+                points: 0,
+                image: post.querySelector("img").src,
+                page: "/discover/gaming-on-linux/" + post.querySelector(".u-url").href.split(".com/").pop(),
+            })))
             .catch(err => []);
     }
 

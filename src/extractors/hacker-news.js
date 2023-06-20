@@ -3,10 +3,21 @@
 // Description: news.ycombinator.com extractor
 
 class extractor {
-    async get_posts(page = 0) {
-        return await fetch(`https://hn.algolia.com/api/v1/search?tags=front_page&attributesToRetrieve=objectID,author,created_at_i,points,title,url&hitsPerPage=12&page=${page}`)
-            .then(res => res.json())
-            .then(data => data.hits)
+    async get_posts(page = 1) {
+        return await fetch(`https://news.ycombinator.com/news?p=${page}`)
+            .then(res => res.text())
+            .then(str => new window.DOMParser().parseFromString(str, "text/html"))
+            .then(dom => [...dom.querySelectorAll(".athing")])
+            .then(posts => posts.map(post => ({
+                title: post.querySelector(".titleline>a").innerText,
+                author: post.nextSibling.querySelector(".hnuser") ? post.nextSibling.querySelector(".hnuser").innerText : null,
+                url: post.querySelector(".titleline>a").href,
+                id: post.id,
+                dt: post.nextSibling.querySelector(".age").title,
+                points: post.nextSibling.querySelector(".score") ? post.nextSibling.querySelector(".score").innerText.split(" ")[0] : null,
+                image: "/favicon.svg",
+                page: "/discover/hacker-news/" + post.id
+            })))
             .catch(err => []);
     }
 

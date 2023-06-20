@@ -4,43 +4,69 @@
         <div class="progress-bar"></div>
     </div>
     <ul class="list-group list-group-flush border-0 p-3 pt-0">
-        <Post :obj="item" v-for="item in posts" />
+        <Post v-for="item in posts" :obj="item" />
     </ul>
+    <div v-if="!scroll_loaded" class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="0"
+        aria-valuemin="0" aria-valuemax="100">
+        <div class="progress-bar"></div>
+    </div>
 </template>
 
 <script setup>
-import { ref, onBeforeMount } from 'vue';
+import { ref, onBeforeMount, onActivated } from 'vue';
 import { extractor } from "/extractors/cumhuriyet.js";
 import Post from '/components/SingleShortPost.vue';
 
-const posts = ref([]);
 const ex = new extractor();
+
+const posts = ref([]);
+const page = ref(1);
+
 const loaded = ref(false);
+const scroll_loaded = ref(true);
+const finished = ref(false);
 
-async function setup() {
-    loaded.value = false;
-
+async function load() {
     let response = await ex.get_posts();
     if (!response.length) {
         loaded.value = true;
+        scroll_loaded.value = true;
+        finished.value = true;
         return
     }
 
-    response.map(item => posts.value.push({
-        author: "Cumhuriyet",
-        title: item.querySelector("title").innerHTML,
-        url: item.querySelector("link").innerHTML,
-        id: item.querySelector("link").innerHTML.split("-").pop(),
-        dt: item.querySelector("pubDate").innerHTML,
-        points: 0,
-        image: "/favicon.svg",
-        page: "/discover/cumhuriyet/" + item.querySelector("link").innerHTML.split("-").pop(),
-    }));
+    // Add the posts to the posts array
+    posts.value.push(...response);
+    page.value++;
+}
 
+async function setup() {
+    loaded.value = false;
+    await load();
     loaded.value = true;
+}
+
+async function scroll() {
+    scroll_loaded.value = false;
+    await load();
+    scroll_loaded.value = true;
 }
 
 onBeforeMount(() => {
     setup();
+
+    let view = document.querySelector('.content-view');
+    view.addEventListener('scroll', () => {
+        if (view.scrollTop + view.clientHeight >= view.scrollHeight - window.innerWidth && scroll_loaded.value && !finished.value) {
+            scroll();
+        }
+    })
+})
+
+onActivated(() => {
+    let scroll = localStorage.getItem(window.location.pathname);
+    if (scroll) {
+        document.querySelector('.content-view').scrollTop = parseInt(scroll);
+    }
 })
 </script>
