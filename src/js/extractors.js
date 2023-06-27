@@ -1,7 +1,7 @@
 // import { CapacitorHttp } from '@capacitor/core';
 
 class cumhuriyet {
-    async get_posts(page = 1, last) {
+    async get_posts(page = 1, request = null, args = null) {
         if (page == 1) {
             let posts = [];
             let elems = [];
@@ -33,7 +33,7 @@ class cumhuriyet {
             return posts;
         }
 
-        return await fetch(`https://www.cumhuriyet.com.tr/bolum-haberleri/9999/${last.last_idhaber}`, {
+        return await fetch(`https://www.cumhuriyet.com.tr/bolum-haberleri/9999/${args.last_idhaber}`, {
             method: "POST",
         })
             .then(res => res.text())
@@ -69,7 +69,7 @@ class cumhuriyet {
 }
 
 class darknet_diaries {
-    async get_posts(page = 1, last) {
+    async get_posts(page = 1, request = null, args = null) {
         let posts = [];
         let elems = [];
 
@@ -143,7 +143,7 @@ class darknet_diaries {
 }
 
 class gaming_on_linux {
-    async get_posts(page = 1, last) {
+    async get_posts(page = 1, request = null, args = null) {
         return await fetch(`https://www.gamingonlinux.com/all-articles/page=${page}`)
             .then(res => res.text())
             .then(str => new window.DOMParser().parseFromString(str, "text/html"))
@@ -178,7 +178,7 @@ class gaming_on_linux {
 }
 
 class hacker_news {
-    async get_posts(page = 1, last) {
+    async get_posts(page = 1, request = null, args = null) {
         return await fetch(`https://news.ycombinator.com/news?p=${page}`)
             .then(res => res.text())
             .then(str => new window.DOMParser().parseFromString(str, "text/html"))
@@ -212,7 +212,7 @@ class hacker_news {
 }
 
 class slashdot {
-    async get_posts(page = 0, last) {
+    async get_posts(page = 0, request = null, args = null) {
         return await fetch(`https://slashdot.org/?desktop=1&page=${page}`)
             .then(res => res.text())
             .then(str => new window.DOMParser().parseFromString(str, "text/html"))
@@ -247,14 +247,12 @@ class slashdot {
 }
 
 class wikipedia {
-    async get_posts(page = 1, last) {
-        // return await CapacitorHttp.get({
-        //     url: "https://en.wikipedia.org/w/api.php?action=query&list=random&rnnamespace=0&rnlimit=12&format=json"
-        // })
+    async get_posts(page = 1, request = null, args = null) {
         console.log("Making request with fetch...");
-        return await fetch("https://en.wikipedia.org/w/api.php?action=query&list=random&rnnamespace=0&rnlimit=12&format=json")
-            // .then(res => res.data)
-            .then(res => res.json())
+        return await request.get({
+            url: "https://en.wikipedia.org/w/api.php?action=query&list=random&rnnamespace=0&rnlimit=12&format=json"
+        })
+            .then(res => res.data)
             .then(data => data.query.random)
             .then(posts => posts.map(post => ({
                 title: post.title,
@@ -269,7 +267,7 @@ class wikipedia {
     }
 
     async get_post(id) {
-        return await CapacitorHttp.get({
+        return await request.get({
             url: `https://en.wikipedia.org/w/api.php?action=query&format=json&prop=info&pageids=${id}`
         })
             .then(res => res.data)
@@ -288,7 +286,7 @@ class wikipedia {
 }
 
 class quanta_magazine {
-    async get_posts(page = 1, _) {
+    async get_posts(page = 1, request = null, args = null) {
         return await fetch("https://www.quantamagazine.org/graphql", {
             method: "POST",
             headers: {

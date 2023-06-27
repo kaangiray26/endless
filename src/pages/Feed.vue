@@ -19,7 +19,9 @@
 <script setup>
 import { ref, onBeforeMount, onActivated } from 'vue';
 import { useRouter } from 'vue-router';
-import { extractors as extractors } from "https://cdn.jsdelivr.net/gh/kaangiray26/endless@latest/src/js/extractors.js";
+import { CapacitorHttp } from '@capacitor/core';
+import { extractors } from "https://cdn.jsdelivr.net/gh/kaangiray26/endless@latest/src/js/extractors.js";
+// import { extractors } from '/js/extractors.js';
 import Fuse from 'fuse.js';
 import Post from '/components/SingleShortPost.vue';
 
@@ -58,7 +60,8 @@ async function search() {
 async function setup() {
     loaded.value = false;
 
-    let response = await ex.value.get_posts();
+    let response = await ex.value.get_posts(1, CapacitorHttp);
+    console.log("Response:", response);
     if (!response.length) {
         loaded.value = true;
         scroll_loaded.value = true;
