@@ -1,7 +1,7 @@
 {
     "hacker-news": {
         "name": "Hacker News",
-        "url": "https://kaangiray26.github.io/endless/extractors/hacker-news.js",
+        "url": "https://kaangiray26.github.io/endless/extractors/hacker-news.min.js",
         "image": "https://news.ycombinator.com/favicon.ico"
     }
 }
