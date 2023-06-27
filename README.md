@@ -24,7 +24,7 @@ Endless is a social media curator that allows you to view all of your favorite w
 - [ ] Quanta Magazine
 
 ## How to contribute?
-You can contribute to Endless by adding support for new websites or by improving the existing codebase. If you want to add support for a new website, take a look at the existing websites. Usually, each website has its own extractor class inside the [main/src/js/extractors.js](src/js/extractor.js) file. If you want to improve the existing codebase, you can do so by creating a pull request.
+You can contribute to Endless by adding support for new websites or by improving the existing codebase. If you want to add support for a new website, take a look at the existing websites. Usually, each website has its own extractor class inside the [extractors.js](src/js/extractors.js) file. If you want to improve the existing codebase, you can do so by creating a pull request.
 
 ## Wiki
 > Coming soon
