@@ -20,7 +20,7 @@
 import { ref, onBeforeMount, onActivated } from 'vue';
 import { useRouter } from 'vue-router';
 import { CapacitorHttp } from '@capacitor/core';
-import { extractors } from "https://cdn.jsdelivr.net/gh/kaangiray26/endless@latest/src/js/extractors.min.js";
+import { extractors } from "https://"
 import Fuse from 'fuse.js';
 import Post from '/components/SingleShortPost.vue';
 
@@ -60,7 +60,6 @@ async function setup() {
     loaded.value = false;
 
     let response = await ex.value.get_posts(1, CapacitorHttp);
-    console.log("Response:", response);
     if (!response.length) {
         loaded.value = true;
         scroll_loaded.value = true;
@@ -78,7 +77,7 @@ async function setup() {
 async function scroll() {
     scroll_loaded.value = false;
 
-    let response = await ex.value.get_posts(page.value, posts.value.slice(-1)[0]);
+    let response = await ex.value.get_posts(page.value, CapacitorHttp, posts.value.slice(-1)[0]);
     if (!response.length) {
         loaded.value = true;
         scroll_loaded.value = true;
