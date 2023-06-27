@@ -4,6 +4,14 @@ An attempt to unify the social media experience.
 ## What is Endless?
 Endless is a social media curator that allows you to view all of your favorite websites in one place with an unified card based interface. It allows for users to upvote, save and comment on posts from websites even if the website doesn't support it.
 
+## Features
+* No account needed
+* Save posts
+* Upvote posts
+* Comment on posts
+* Remove upvotes and comments if needed
+* Fuzzy search on post titles on feed
+
 ## Supported Websites
 - [x] Wikipedia
 - [x] Hacker News
