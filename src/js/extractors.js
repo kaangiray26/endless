@@ -1,4 +1,4 @@
-import { CapacitorHttp } from '@capacitor/core';
+import { CapacitorHttp } from "/node_modules/@capacitor/core/dist/capacitor.js";
 
 class cumhuriyet {
     async get_posts(page = 1, last) {
