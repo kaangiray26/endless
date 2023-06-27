@@ -1,4 +1,8 @@
 <template>
+    <div class="input-group">
+        <input v-model="text" type="text" class="form-control input-plain rounded-0" placeholder="Search"
+            aria-label="Search" @input="search">
+    </div>
     <div v-if="!loaded" class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0"
         aria-valuemax="100">
         <div class="progress-bar"></div>
@@ -14,39 +18,52 @@
 
 <script setup>
 import { ref, onBeforeMount, onActivated } from 'vue';
-import { extractor } from "/extractors/darknet-diaries.js";
+import { useRouter } from 'vue-router';
+import { extractors } from "/js/extractors.js";
+import Fuse from 'fuse.js';
 import Post from '/components/SingleShortPost.vue';
 
-const ex = new extractor();
+const router = useRouter()
 
+const text = ref("");
+const fuse = ref(null);
+const backup = ref(null);
+
+const ex = ref(null);
 const posts = ref([]);
-const page = ref(2);
+const page = ref(1);
 
 const loaded = ref(false);
 const scroll_loaded = ref(true);
 const finished = ref(false);
 
-async function load() {
-    let response = await ex.get_posts();
-    if (!response.length) {
-        loaded.value = true;
-        return
+async function search() {
+    let query = text.value;
+    if (query.length == 0) {
+        posts.value = backup.value;
+        return;
     }
 
-    // Add the posts to the posts array
-    posts.value.push(...response);
+    // Backup posts if not already backed up
+    if (!backup.value) {
+        backup.value = posts.value;
+    }
+
+    // Search posts for query
+    fuse.value = new Fuse(posts.value, {
+        keys: ['title'],
+        threshold: 0.3
+    });
+    let result = fuse.value.search(query);
+    posts.value = result.map(item => item.item);
 }
 
 async function setup() {
     loaded.value = false;
-    await load();
-    loaded.value = true;
-}
 
-async function scroll() {
-    scroll_loaded.value = false;
-    let response = await ex.get_more_posts(page.value);
+    let response = await ex.value.get_posts();
     if (!response.length) {
+        loaded.value = true;
         scroll_loaded.value = true;
         finished.value = true;
         return
@@ -55,12 +72,36 @@ async function scroll() {
     // Add the posts to the posts array
     posts.value.push(...response);
     page.value++;
+
+    loaded.value = true;
+}
+
+async function scroll() {
+    scroll_loaded.value = false;
+
+    let response = await ex.value.get_posts(page.value, posts.value.slice(-1)[0]);
+    if (!response.length) {
+        loaded.value = true;
+        scroll_loaded.value = true;
+        finished.value = true;
+        return
+    }
+
+    // Add the posts to the posts array
+    posts.value.push(...response);
+    page.value++;
+
     scroll_loaded.value = true;
 }
 
 onBeforeMount(() => {
+    // Set the extractor
+    ex.value = extractors[router.currentRoute.value.params.domain];
+
+    // Run setup
     setup();
 
+    // Add the scroll event listener
     let view = document.querySelector('.content-view');
     view.addEventListener('scroll', () => {
         if (view.scrollTop + view.clientHeight >= view.scrollHeight - window.innerWidth && scroll_loaded.value && !finished.value) {

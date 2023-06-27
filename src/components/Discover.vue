@@ -4,7 +4,8 @@
             <h5>Discover new pages</h5>
         </div>
         <div class="input-group">
-            <input v-model="text" type="text" class="form-control" placeholder="Search" aria-label="Search" @input="search">
+            <input v-model="text" type="text" class="form-control input-plain" placeholder="Search" aria-label="Search"
+                @input="search">
         </div>
         <ul class="list-group list-group-flush border-0">
             <li v-for="extractor in extractors" class="list-group-item border rounded clickable click-effect p-0 mt-2"

@@ -22,6 +22,10 @@ textarea {
     box-shadow: unset !important;
 }
 
+.input-plain {
+    box-shadow: unset !important;
+}
+
 .complete-view {
     height: 100vh;
     /* Fallback for browsers that do not support Custom Properties */

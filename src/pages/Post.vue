@@ -9,19 +9,16 @@
 <script setup>
 import { ref, onBeforeMount, onActivated } from 'vue';
 import { useRouter } from 'vue-router';
-import { extractor } from "/extractors/gaming-on-linux.js";
+import { extractors } from "/js/extractors.js";
 import Post from '/components/SinglePost.vue';
 
 const router = useRouter();
 
+const ex = ref(null);
 const item = ref(null);
-const ex = new extractor();
-
-const id = router.currentRoute.value.params.id;
 
 async function setup() {
-    console.log(id);
-    let response = await ex.get_post(id.join("/"));
+    let response = await ex.value.get_post(router.currentRoute.value.params.id.join("/"));
     if (!response) {
         return;
     }
@@ -30,12 +27,12 @@ async function setup() {
 }
 
 onBeforeMount(() => {
-    if (!id) {
-        router.push("/discover/gaming-on-linux");
-        return
-    }
+    // Set the extractor
+    ex.value = extractors[router.currentRoute.value.params.domain];
+
+    // Run setup
     setup();
-})
+});
 
 onActivated(() => {
     let pages = JSON.parse(localStorage.getItem("pages"));
@@ -43,5 +40,5 @@ onActivated(() => {
     if (this_page) {
         document.querySelector('.content-view').scrollTop = parseInt(this_page.scroll);
     }
-})
+});
 </script>
