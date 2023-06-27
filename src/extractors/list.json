@@ -29,6 +29,11 @@
             "name": "Slashdot",
             "image": "https://slashdot.org/favicon.ico",
             "path": "/discover/slashdot"
+        },
+        {
+            "name": "Quanta Magazine",
+            "image": "https://www.quantamagazine.org/favicon.png",
+            "path": "/discover/quanta-magazine"
         }
     ]
 }
