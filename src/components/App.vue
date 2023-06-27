@@ -30,11 +30,11 @@ onMounted(async () => {
         .then(res => res.json())
         .catch(err => null);
 
-    console.log(list);
-
-    let js = await fetch("https://kaangiray26.github.io/endless/extractors/test.js")
+    let js = await fetch(list['hacker-news'].url)
         .then(res => res.text())
         .then(res => res + "return extractor();")
+
+    console.log(js);
 
     let ex = new Function(js)();
 
