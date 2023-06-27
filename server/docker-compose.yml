@@ -18,8 +18,6 @@ services:
             POSTGRES_PASSWORD: endless # Set Postgres Password
             POSTGRES_PORT: 5432        # Postgres Database Port
             POSTGRES_DB: endless       # Set Postgres Database Name
-        volumes:
-            - <www>:/www               # Set Web Directory
     postgres:
         image: kaangiray26/postgres:2.0
         restart: on-failure
