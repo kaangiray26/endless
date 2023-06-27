@@ -31,6 +31,9 @@ Endless is a social media curator that allows you to view all of your favorite w
     <img src="images/screenshot_5.png" width=160>
 </div>
 
+## Installation
+Download the APK from [GitHub Releases](https://github.com/kaangiray26/endless/releases) and install it.
+
 ## Features
 * No account needed
 * Save posts
@@ -63,6 +66,3 @@ Prebuilt versions:
 
 ## Wiki
 > Coming soon
-
-## Installation
-Download the APK from [GitHub Releases](https://github.com/kaangiray26/endless/releases) and install it.
