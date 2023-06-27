@@ -29,4 +29,8 @@ if (!localStorage.getItem("commented")) {
     localStorage.setItem("commented", JSON.stringify([]));
 }
 
+if (!localStorage.getItem("tag")) {
+    localStorage.setItem("tag", JSON.stringify("1.0"));
+}
+
 createApp(App).use(router).mount('#app');

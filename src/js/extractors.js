@@ -1,5 +1,3 @@
-// import { CapacitorHttp } from '@capacitor/core';
-
 class cumhuriyet {
     async get_posts(page = 1, request = null, args = null) {
         if (page == 1) {
