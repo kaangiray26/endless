@@ -246,7 +246,6 @@ class slashdot {
 
 class wikipedia {
     async get_posts(page = 1, request = null, args = null) {
-        console.log("Making request with fetch...");
         return await request.get({
             url: "https://en.wikipedia.org/w/api.php?action=query&list=random&rnnamespace=0&rnlimit=12&format=json"
         })
