@@ -1,3 +1,7 @@
 {
-    "test": "https://kaangiray26.github.io/endless/extractors/test.js"
+    "hacker-news": {
+        "name": "Hacker News",
+        "url": "https://kaangiray26.github.io/endless/extractors/hacker-news.js",
+        "image": "https://news.ycombinator.com/favicon.ico"
+    }
 }

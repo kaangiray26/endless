@@ -15,6 +15,7 @@
 </template>
 
 <script setup>
+import { onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import Toolbar from "./Toolbar.vue";
 
@@ -23,4 +24,15 @@ const router = useRouter();
 async function reload() {
     location.reload(true);
 }
+
+onMounted(async () => {
+    let js = await fetch("https://kaangiray26.github.io/endless/extractors/test.js")
+        .then(res => res.text())
+        .then(res => res + "return extractor();")
+
+    let ex = new Function(js)();
+
+    let posts = await ex.get_posts();
+    console.log(posts);
+})
 </script>
