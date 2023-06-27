@@ -9,7 +9,7 @@
 <script setup>
 import { ref, onBeforeMount, onActivated } from 'vue';
 import { useRouter } from 'vue-router';
-import { extractors } from "/js/extractors.js";
+import { extractors } from "https://kaangiray26.github.io/endless/src/js/extractors.min.js";
 import Post from '/components/SinglePost.vue';
 
 const router = useRouter();

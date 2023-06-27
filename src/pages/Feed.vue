@@ -20,7 +20,7 @@
 import { ref, onBeforeMount, onActivated } from 'vue';
 import { useRouter } from 'vue-router';
 import { CapacitorHttp } from '@capacitor/core';
-import { extractors } from "https://cdn.jsdelivr.net/gh/kaangiray26/endless@latest/src/js/extractors.min.js"
+import { extractors } from "https://kaangiray26.github.io/endless/src/js/extractors.min.js"
 import Fuse from 'fuse.js';
 import Post from '/components/SingleShortPost.vue';
 

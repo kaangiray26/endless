@@ -28,7 +28,7 @@
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import Fuse from 'fuse.js';
-import { list } from "https://cdn.jsdelivr.net/gh/kaangiray26/endless@latest/src/js/extractors.min.js"
+import { list } from "https://kaangiray26.github.io/endless/src/js/extractors.min.js"
 
 const router = useRouter();
 const extractors = ref(list);
