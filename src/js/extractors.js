@@ -1,4 +1,4 @@
-import { CapacitorHttp } from "/node_modules/@capacitor/core/dist/capacitor.js";
+// import { CapacitorHttp } from '@capacitor/core';
 
 class cumhuriyet {
     async get_posts(page = 1, last) {
@@ -248,10 +248,12 @@ class slashdot {
 
 class wikipedia {
     async get_posts(page = 1, last) {
-        return await CapacitorHttp.get({
-            url: "https://en.wikipedia.org/w/api.php?action=query&list=random&rnnamespace=0&rnlimit=12&format=json"
-        })
-            .then(res => res.data)
+        // return await CapacitorHttp.get({
+        //     url: "https://en.wikipedia.org/w/api.php?action=query&list=random&rnnamespace=0&rnlimit=12&format=json"
+        // })
+        return await fetch("https://en.wikipedia.org/w/api.php?action=query&list=random&rnnamespace=0&rnlimit=12&format=json")
+            // .then(res => res.data)
+            .then(res => res.json())
             .then(data => data.query.random)
             .then(posts => posts.map(post => ({
                 title: post.title,
