@@ -26,6 +26,12 @@ async function reload() {
 }
 
 onMounted(async () => {
+    let list = await fetch("https://kaangiray26.github.io/endless/extractors/list.json")
+        .then(res => res.json())
+        .catch(err => null);
+
+    console.log(list);
+
     let js = await fetch("https://kaangiray26.github.io/endless/extractors/test.js")
         .then(res => res.text())
         .then(res => res + "return extractor();")
