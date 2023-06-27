@@ -35,21 +35,21 @@ async function init() {
 
 async function get_specs(req, res, next) {
     let dt = new Date();
-    let posts_count = await db.one("SELECT COUNT(*) FROM upvotes");
+    let upposts_count = await db.one("SELECT COUNT(*) FROM upvotes");
     let comments_count = await db.one("SELECT COUNT(*) FROM comments");
 
-    let last_added_post = await db.oneOrNone("SELECT * FROM upvotes ORDER BY created_at DESC LIMIT 1");
-    let last_added_comment = await db.oneOrNone("SELECT * FROM comments ORDER BY created_at DESC LIMIT 1");
+    let last_added_upvote = await db.oneOrNone("SELECT post, created_at FROM upvotes ORDER BY created_at DESC LIMIT 1");
+    let last_added_comment = await db.oneOrNone("SELECT post, comment, created_at FROM comments ORDER BY created_at DESC LIMIT 1");
 
     let specs = {
         "name": "Endless Server",
         "github": "https://github.com/kaangiray26/endless",
-        "version": "1.0",
+        "version": process.env.version,
         "uptime": process.uptime(),
         "time": dt.toUTCString(),
-        "posts_count": posts_count.count,
+        "upvotes_count": upposts_count.count,
         "comments_count": comments_count.count,
-        "last_added_post": last_added_post,
+        "last_added_upvote": last_added_upvote,
         "last_added_comment": last_added_comment
     }
 

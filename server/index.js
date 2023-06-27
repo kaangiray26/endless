@@ -4,9 +4,6 @@ import cors from "cors";
 import { fileURLToPath } from 'url';
 import db from "./js/db.js";
 
-// Port
-process.env.port = 3000;
-
 // Path
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
