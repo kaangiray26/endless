@@ -37,6 +37,10 @@ onBeforeMount(() => {
 })
 
 onActivated(() => {
-    document.querySelector('.content-view').scrollTop = 0;
+    let pages = JSON.parse(localStorage.getItem("pages"));
+    let this_page = pages.find(page => page.path == window.location.pathname);
+    if (this_page) {
+        document.querySelector('.content-view').scrollTop = parseInt(this_page.scroll);
+    }
 })
 </script>

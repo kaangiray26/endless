@@ -9,7 +9,7 @@
 <script setup>
 import { ref, onBeforeMount, onActivated } from 'vue';
 import { useRouter } from 'vue-router';
-import { extractor } from "/extractors/gaming-on-linux.js";
+import { extractor } from "/extractors/slashdot.js";
 import Post from '/components/SinglePost.vue';
 
 const router = useRouter();
@@ -20,7 +20,6 @@ const ex = new extractor();
 const id = router.currentRoute.value.params.id;
 
 async function setup() {
-    console.log(id);
     let response = await ex.get_post(id.join("/"));
     if (!response) {
         return;
@@ -31,7 +30,7 @@ async function setup() {
 
 onBeforeMount(() => {
     if (!id) {
-        router.push("/discover/gaming-on-linux");
+        router.push("/discover/slashdot");
         return
     }
     setup();

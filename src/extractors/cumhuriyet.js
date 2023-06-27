@@ -48,7 +48,6 @@ class extractor {
                 url: "https://cumhuriyet.com.tr/" + post.attributes.src.value.split("/").slice(-2, -1)[0],
                 id: post.attributes.src.value.split("/").slice(-2, -1)[0],
                 dt: null,
-                points: 0,
                 image: "https://cumhuriyet.com.tr" + post.attributes.src.value,
                 page: "/discover/cumhuriyet/" + post.attributes.src.value.split("/").slice(-2, -1)[0]
             })))
@@ -64,8 +63,8 @@ class extractor {
                 url: dom.head.querySelector("meta[property='og:url']").content,
                 id: id,
                 dt: null,
-                points: 0,
-                comments: []
+                image: "/favicon.svg",
+                page: "/discover/cumhuriyet/" + id,
             }))
             .catch(err => null);
     }

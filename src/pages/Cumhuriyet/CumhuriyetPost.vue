@@ -7,7 +7,7 @@
 </template>
 
 <script setup>
-import { ref, onBeforeMount } from 'vue';
+import { ref, onBeforeMount, onActivated } from 'vue';
 import { useRouter } from 'vue-router';
 import { extractor } from "/extractors/cumhuriyet.js";
 import Post from '/components/SinglePost.vue';
@@ -34,5 +34,13 @@ onBeforeMount(() => {
         return
     }
     setup();
+})
+
+onActivated(() => {
+    let pages = JSON.parse(localStorage.getItem("pages"));
+    let this_page = pages.find(page => page.path == window.location.pathname);
+    if (this_page) {
+        document.querySelector('.content-view').scrollTop = parseInt(this_page.scroll);
+    }
 })
 </script>

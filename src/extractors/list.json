@@ -24,6 +24,11 @@
             "name": "Darknet Diaries",
             "image": "https://darknetdiaries.com/imgs/favicon.png",
             "path": "/discover/darknet-diaries"
+        },
+        {
+            "name": "Slashdot",
+            "image": "https://slashdot.org/favicon.ico",
+            "path": "/discover/slashdot"
         }
     ]
 }

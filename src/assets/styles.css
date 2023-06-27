@@ -15,6 +15,13 @@ body {
     height: 100%;
 }
 
+textarea {
+    resize: none;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: unset !important;
+}
+
 .complete-view {
     height: 100vh;
     /* Fallback for browsers that do not support Custom Properties */
@@ -114,4 +121,11 @@ body {
     height: 48px;
     object-fit: cover;
     border-top-left-radius: var(--bs-border-radius) !important;
+}
+
+.p-theme {
+    padding-top: 6px;
+    padding-bottom: 6px;
+    padding-right: 12px;
+    padding-left: 12px;
 }

@@ -11,12 +11,13 @@
                 <img class="img-post" :src="obj.image" @error="placeholder">
             </div>
             <div class="d-flex justify-content-between bg-dark">
-                <span class="text-light font-monospace ms-2">{{ obj.points }} pts</span>
-                <span class="text-light font-monospace me-2">{{ obj.comments.length }} cts</span>
+                <span class="text-light font-monospace ms-2">{{ points }} pts</span>
+                <span class="text-light font-monospace me-2">{{ comments.length }} cts</span>
             </div>
-            <div class="d-flex justify-content-around bg-light rounded">
-                <button type="button" class="btn btn-touch bi bi-heart"></button>
-                <button type="button" class="btn btn-touch bi bi-chat" @click="comments"></button>
+            <div class="d-flex justify-content-around bg-light">
+                <button type="button" class="btn btn-touch bi"
+                    :class="{ 'bi-heart-fill': is_upvoted, 'bi-heart': !is_upvoted }" @click="upvote"></button>
+                <button type="button" class="btn btn-touch bi bi-chat"></button>
                 <button type="button" class="btn btn-touch bi"
                     :class="{ 'bi-bookmark-fill': is_saved, 'bi-bookmark': !is_saved }" @click="save"></button>
                 <button type="button" class="btn btn-touch bi bi-share" @click="share"></button>
@@ -24,13 +25,22 @@
             </div>
         </div>
     </div>
-    <div>
+    <div class="d-flex flex-column">
+        <div class="d-flex flex-column border">
+            <div class="input-group">
+                <textarea v-model="comment_text" class="form-control" aria-label="With textarea"
+                    placeholder="Remember, be nice!" rows="5" cols="33" wrap="soft"></textarea>
+            </div>
+            <div class="d-flex justify-content-end">
+                <button type="button" class="btn btn-touch click-effect" @click="comment">Post</button>
+            </div>
+        </div>
         <ul class="list-group">
-            <div v-for="comment in obj.comments">
-                <li v-if="comment.text" class="list-group-item">
+            <div v-for="comment in comments">
+                <li class="list-group-item">
                     <div class="d-flex flex-column">
-                        <span class="fw-bold">{{ comment.author }}</span>
-                        <span v-html="comment.text"></span>
+                        <span class="fw-bold">Anonymous</span>
+                        <span v-html="comment.comment"></span>
                     </div>
                 </li>
             </div>
@@ -44,10 +54,10 @@ import { useRouter } from 'vue-router';
 import { CapacitorHttp } from '@capacitor/core';
 import { Browser } from '@capacitor/browser';
 import { Share } from '@capacitor/share';
+import { get_upvotes, post_upvotes, remove_upvotes, get_comments, post_comments } from "/js/utils.js";
 
 const router = useRouter();
 
-const is_saved = ref(false);
 const props = defineProps({
     obj: {
         type: Object,
@@ -55,11 +65,32 @@ const props = defineProps({
     }
 })
 
-async function check_saved() {
-    let saved = localStorage.getItem("saved");
-    let data = saved ? JSON.parse(saved) : [];
+const is_saved = ref(false);
+const is_upvoted = ref(false);
 
-    if (data.find(item => item.page === props.obj.page)) {
+const points = ref(0);
+const offset = ref(0);
+const comments = ref([]);
+const comment_text = ref("");
+
+const upvoting = ref(false);
+const commenting = ref(false);
+const saving = ref(false);
+
+async function check_upvoted() {
+    let upvoted = JSON.parse(localStorage.getItem("upvoted"));
+
+    if (upvoted.find(item => item.page === props.obj.page)) {
+        is_upvoted.value = true;
+    } else {
+        is_upvoted.value = false;
+    }
+}
+
+async function check_saved() {
+    let saved = JSON.parse(localStorage.getItem("saved"));
+
+    if (saved.find(item => item.page === props.obj.page)) {
         is_saved.value = true;
     } else {
         is_saved.value = false;
@@ -92,10 +123,6 @@ async function redirect() {
     });
 }
 
-async function comments() {
-    router.push(props.obj.page);
-}
-
 async function placeholder(obj) {
     obj.target.src = "/favicon.svg";
 }
@@ -109,30 +136,150 @@ async function share() {
     })
 }
 
-async function save() {
-    let saved = localStorage.getItem("saved");
-    let data = saved ? JSON.parse(saved) : [];
+async function upvote() {
+    // Check if the user is already upvoting
+    if (upvoting.value) {
+        return
+    }
+    upvoting.value = true;
 
-    if (data.find(item => item.page == props.obj.page)) {
-        // Remove element from the saved items
-        data = data.filter(item => item.page != props.obj.page);
-        localStorage.setItem("saved", JSON.stringify(data));
-        is_saved.value = false;
+    // Check if the user is already upvoted
+    let upvoted = JSON.parse(localStorage.getItem("upvoted"));
+    let upvote = upvoted.find(item => item.page === props.obj.page);
+
+    // Remove upvote from the upvoted items
+    if (upvote) {
+        // Remove the upvote
+        let response = await remove_upvotes(props.obj.page, upvote.identifier);
+        if (!response.success) {
+            upvoting.value = false;
+            return
+        }
+
+        upvoted = upvoted.filter(item => item.page != props.obj.page && item.identifier != upvote.identifier);
+        localStorage.setItem("upvoted", JSON.stringify(upvoted));
+        points.value -= 1;
+
+        is_upvoted.value = false;
+        upvoting.value = false;
         return
     }
 
-    data.push(props.obj);
-    localStorage.setItem("saved", JSON.stringify(data));
+    // Post the upvote
+    let response = await post_upvotes(props.obj.page);
+    if (!response.success) {
+        upvoting.value = false;
+        return
+    }
+
+    // Save upvote locally
+    props.obj.identifier = response.identifier;
+    upvoted.push(props.obj)
+    localStorage.setItem("upvoted", JSON.stringify(upvoted));
+    points.value += 1;
+
+    is_upvoted.value = true;
+    upvoting.value = false;
+}
+
+async function save() {
+    // Check if the user is already saving
+    if (saving.value) {
+        return
+    }
+    saving.value = true;
+
+    // Check if the item is already saved
+    let saved = JSON.parse(localStorage.getItem("saved"));
+
+    // Remove element from the saved items
+    if (saved.find(item => item.page == props.obj.page)) {
+        saved = saved.filter(item => item.page != props.obj.page);
+        localStorage.setItem("saved", JSON.stringify(saved));
+        is_saved.value = false;
+        saving.value = false;
+        return
+    }
+
+    // Add element to the saved items
+    saved.push(props.obj);
+    localStorage.setItem("saved", JSON.stringify(saved));
     is_saved.value = true;
+    saving.value = false;
+}
+
+async function _get_upvotes() {
+    let response = await get_upvotes(props.obj.page);
+    if (!response.success) {
+        return
+    }
+
+    points.value = parseInt(response.points);
+}
+
+async function _get_comments() {
+    let response = await get_comments(props.obj.page, offset.value);
+    if (!response.success) {
+        return
+    }
+
+    comments.value.push(...response.comments);
+    offset.value += response.comments.length;
+}
+
+async function comment() {
+    // Check if the user is already commenting
+    if (commenting.value) {
+        return
+    }
+    commenting.value = true;
+
+    // Check if the comment is empty
+    if (!comment_text.value.length) {
+        commenting.value = false;
+        return
+    }
+
+    // Post the comment
+    let text = comment_text.value;
+    let response = await post_comments(props.obj.page, text);
+    if (!response.success) {
+        commenting.value = false;
+        return
+    }
+
+    // Save comment locally
+    let commented = JSON.parse(localStorage.getItem("commented"));
+    props.obj.identifier = response.identifier;
+    props.obj.comment = text;
+    commented.push(props.obj);
+    localStorage.setItem("commented", JSON.stringify(commented));
+
+    // Show comment on the page
+    comments.value.unshift({
+        comment: text
+    });
+
+    // Reset the comment box
+    comment_text.value = "";
+    commenting.value = false;
 }
 
 onBeforeMount(() => {
-    console.log(props.obj.page)
-    check_saved();
+    _get_upvotes();
+    _get_comments();
     get_preview();
+    check_upvoted();
+    check_saved();
 })
 
 onActivated(() => {
+    offset.value = 0;
+    comments.value = [];
+
+    _get_upvotes();
+    _get_comments();
+    check_upvoted();
     check_saved();
 })
 </script>

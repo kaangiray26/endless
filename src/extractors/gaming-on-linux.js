@@ -12,11 +12,10 @@ class extractor {
                 title: post.querySelector(".title").textContent,
                 author: post.querySelector(".p-author").textContent,
                 url: post.querySelector(".u-url").href,
-                id: post.querySelector(".u-url").href.split(".com/").pop(),
+                id: post.querySelector(".u-url").pathname,
                 dt: post.querySelector("time").dateTime,
-                points: 0,
                 image: post.querySelector("img").src,
-                page: "/discover/gaming-on-linux/" + post.querySelector(".u-url").href.split(".com/").pop(),
+                page: "/discover/gaming-on-linux" + post.querySelector(".u-url").pathname,
             })))
             .catch(err => []);
     }
@@ -31,10 +30,8 @@ class extractor {
                 url: dom.head.querySelector("meta[property='og:url']").content,
                 id: id,
                 dt: null,
-                points: 0,
                 image: "/favicon.svg",
-                page: "/discover/gaming-on*linux/" + id,
-                comments: []
+                page: "/discover/gaming-on-linux" + id,
             }))
             .catch(err => null);
     }

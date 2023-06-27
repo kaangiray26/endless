@@ -55,7 +55,6 @@ class extractor {
             url: "https://darknetdiaries.com" + post.querySelector(".post__title>a").pathname,
             id: post.querySelector(".post__title>a").pathname.split("/")[2],
             dt: null,
-            points: 0,
             image: "https://darknetdiaries.com" + post.querySelector(".post__image").style.backgroundImage.slice(5, -2),
             page: "/discover/darknet-diaries/" + post.querySelector(".post__title>a").pathname.split("/")[2]
         }))
@@ -73,8 +72,8 @@ class extractor {
                 url: dom.head.querySelector("meta[property='og:url']").content,
                 id: id,
                 dt: null,
-                points: 0,
-                comments: []
+                image: "/favicon.svg",
+                page: "/discover/darknet-diaries/" + id,
             }))
             .catch(err => null);
     }

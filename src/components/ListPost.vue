@@ -1,5 +1,5 @@
 <template>
-    <div class="card border-0 theme-shadow rounded">
+    <div class="post card border-0 theme-shadow rounded">
         <div class="card-body p-0">
             <div class="border-bottom px-2 py-1">
                 <span class="fw-bold">{{ obj.author }}</span>

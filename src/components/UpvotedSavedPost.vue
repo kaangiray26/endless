@@ -1,48 +1,41 @@
 <template>
-    <li class="list-group-item border rounded clickable click-effect p-0 mt-3">
-        <div class="d-flex">
-            <div class="d-flex square p-1 me-1">
-                <img ref="target" class="cover icon" :src="obj.image" @error="placeholder" loading="lazy">
-            </div>
-            <div class="d-flex flex-fill align-items-center">
-                <h6 class="m-0">{{ obj.title }}</h6>
-            </div>
+    <div class="d-flex">
+        <div class="d-flex square p-1">
+            <img class="cover icon" :src="obj.image" @error="placeholder">
         </div>
-        <div class="d-flex justify-content-around bg-light rounded">
-            <button type="button" class="btn btn-touch bi" :class="{ 'bi-heart-fill': is_upvoted, 'bi-heart': !is_upvoted }"
-                @click="upvote"></button>
-            <button type="button" class="btn btn-touch bi bi-chat" @click="comments"></button>
-            <button type="button" class="btn btn-touch bi"
-                :class="{ 'bi-bookmark-fill': is_saved, 'bi-bookmark': !is_saved }" @click="save"></button>
-            <button type="button" class="btn btn-touch bi bi-share" @click="share"></button>
-            <button type="button" class="btn btn-touch bi bi-box-arrow-up-right" @click="redirect"></button>
+        <div class="d-flex flex-fill align-items-center">
+            <h6 class="text-break p-1 m-0">{{ obj.title }}</h6>
         </div>
-    </li>
+    </div>
+    <div class="d-flex justify-content-around bg-light rounded">
+        <button type="button" class="btn btn-touch bi" :class="{ 'bi-heart-fill': is_upvoted, 'bi-heart': !is_upvoted }"
+            @click="upvote"></button>
+        <button type="button" class="btn btn-touch bi bi-chat" @click="comments"></button>
+        <button type="button" class="btn btn-touch bi" :class="{ 'bi-bookmark-fill': is_saved, 'bi-bookmark': !is_saved }"
+            @click="save"></button>
+        <button type="button" class="btn btn-touch bi bi-share" @click="share"></button>
+        <button type="button" class="btn btn-touch bi bi-box-arrow-up-right" @click="redirect"></button>
+    </div>
 </template>
 
 <script setup>
 import { ref, onBeforeMount, onActivated } from 'vue';
 import { useRouter } from 'vue-router';
-import { useIntersectionObserver } from '@vueuse/core'
-import { CapacitorHttp } from '@capacitor/core';
 import { Browser } from '@capacitor/browser';
 import { Share } from '@capacitor/share';
 import { post_upvotes, remove_upvotes } from "/js/utils.js";
 
 const router = useRouter();
-
 const props = defineProps({
     obj: {
         type: Object,
         required: true
     }
-})
+});
+const emit = defineEmits(["refresh"]);
 
-const target = ref(null);
-const img_loaded = ref(false);
-
-const is_saved = ref(false);
 const is_upvoted = ref(false);
+const is_saved = ref(false);
 
 const upvoting = ref(false);
 const saving = ref(false);
@@ -55,16 +48,6 @@ async function comments() {
     router.push(props.obj.page);
 }
 
-async function check_saved() {
-    let saved = JSON.parse(localStorage.getItem("saved"));
-
-    if (saved.find(item => item.page === props.obj.page)) {
-        is_saved.value = true;
-    } else {
-        is_saved.value = false;
-    }
-}
-
 async function check_upvoted() {
     let upvoted = JSON.parse(localStorage.getItem("upvoted"));
 
@@ -75,21 +58,14 @@ async function check_upvoted() {
     }
 }
 
-async function get_preview() {
-    img_loaded.value = true;
+async function check_saved() {
+    let saved = JSON.parse(localStorage.getItem("saved"));
 
-    // If the image is already loaded, return
-    if (props.obj.image != "/favicon.svg") {
-        return
+    if (saved.find(item => item.page === props.obj.page)) {
+        is_saved.value = true;
+    } else {
+        is_saved.value = false;
     }
-
-    props.obj.image = await CapacitorHttp.get({
-        url: props.obj.url
-    })
-        .then(res => res.data)
-        .then(str => new DOMParser().parseFromString(str, "text/html"))
-        .then(dom => dom.head.querySelector("meta[property='og:image']").content)
-        .catch(err => "/favicon.svg");
 }
 
 async function redirect() {
@@ -119,6 +95,7 @@ async function save() {
         // Remove element from the saved items
         saved = saved.filter(item => item.page != props.obj.page);
         localStorage.setItem("saved", JSON.stringify(saved));
+        emit("refresh");
 
         is_saved.value = false;
         saving.value = false;
@@ -154,6 +131,8 @@ async function upvote() {
 
         upvoted = upvoted.filter(item => item.page != props.obj.page && item.identifier != upvote.identifier);
         localStorage.setItem("upvoted", JSON.stringify(upvoted));
+        emit("refresh");
+
         is_upvoted.value = false;
         upvoting.value = false;
         return
@@ -176,19 +155,13 @@ async function upvote() {
 }
 
 onBeforeMount(() => {
+    console.log("onBeforeMount", props.obj);
     check_upvoted();
     check_saved();
-
-    useIntersectionObserver(target, ([{ isIntersecting }]) => {
-        if (!img_loaded.value && isIntersecting) {
-            get_preview();
-        }
-    }, {
-        threshold: 0.5
-    })
 })
 
 onActivated(() => {
+    console.log("onActivated", props.obj);
     check_upvoted();
     check_saved();
 })

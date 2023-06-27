@@ -24,7 +24,7 @@
 </template>
 
 <script setup>
-import { computed, onBeforeMount } from 'vue';
+import { computed } from 'vue';
 import { App } from '@capacitor/app';
 import { useRouter } from 'vue-router';
 

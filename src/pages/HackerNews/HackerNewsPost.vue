@@ -22,32 +22,10 @@ const id = router.currentRoute.value.params.id;
 async function setup() {
     let response = await ex.get_post(id);
     if (!response) {
-        console.log("Error", response);
         return;
     }
 
-    get_comments(response.kids)
-
-    item.value = {
-        author: response.by,
-        title: response.title,
-        url: response.url,
-        id: response.id,
-        dt: response.time,
-        points: response.score,
-        image: "/favicon.svg",
-        page: "/discover/hacker-news/" + response.id,
-        comments: [],
-    }
-}
-
-async function get_comments(ids) {
-    let comments = await ex.get_comments(ids);
-    if (!comments) {
-        console.log("Error", comments);
-        return;
-    }
-    item.value.comments = comments;
+    item.value = response;
 }
 
 onBeforeMount(() => {
@@ -59,6 +37,10 @@ onBeforeMount(() => {
 })
 
 onActivated(() => {
-    document.querySelector('.content-view').scrollTop = 0;
+    let pages = JSON.parse(localStorage.getItem("pages"));
+    let this_page = pages.find(page => page.path == window.location.pathname);
+    if (this_page) {
+        document.querySelector('.content-view').scrollTop = parseInt(this_page.scroll);
+    }
 })
 </script>

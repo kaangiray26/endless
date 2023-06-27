@@ -22,9 +22,18 @@ class extractor {
     }
 
     async get_post(id) {
-        return await fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`)
-            .then(res => res.json())
-            .catch(err => null);
+        return await fetch(`https://news.ycombinator.com/item?id=${id}`)
+            .then(res => res.text())
+            .then(str => new window.DOMParser().parseFromString(str, "text/html"))
+            .then(dom => ({
+                title: dom.querySelector(".titleline > a").innerText,
+                author: dom.querySelector(".hnuser").innerText,
+                url: dom.querySelector(".titleline > a").href,
+                id: id,
+                dt: dom.querySelector(".age").title,
+                image: "/favicon.svg",
+                page: "/discover/hacker-news/" + id
+            }))
     }
 
     async get_comments(ids) {
