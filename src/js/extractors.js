@@ -353,4 +353,42 @@ const extractors = {
     "quanta-magazine": new quanta_magazine(),
 }
 
-export { extractors }
+const list = [
+    {
+        "name": "Wikipedia",
+        "image": "https://en.wikipedia.org/static/favicon/wikipedia.ico",
+        "path": "/discover/wikipedia"
+    },
+    {
+        "name": "Hacker News",
+        "image": "https://news.ycombinator.com/favicon.ico",
+        "path": "/discover/hacker-news"
+    },
+    {
+        "name": "Cumhuriyet",
+        "image": "https://www.cumhuriyet.com.tr/Content/images/icons/favicon.ico",
+        "path": "/discover/cumhuriyet"
+    },
+    {
+        "name": "GamingOnLinux",
+        "image": "https://www.gamingonlinux.com/templates/default/images/favicons/favicon.ico",
+        "path": "/discover/gaming-on-linux"
+    },
+    {
+        "name": "Darknet Diaries",
+        "image": "https://darknetdiaries.com/imgs/favicon.png",
+        "path": "/discover/darknet-diaries"
+    },
+    {
+        "name": "Slashdot",
+        "image": "https://slashdot.org/favicon.ico",
+        "path": "/discover/slashdot"
+    },
+    {
+        "name": "Quanta Magazine",
+        "image": "https://www.quantamagazine.org/favicon.png",
+        "path": "/discover/quanta-magazine"
+    }
+]
+
+export { extractors, list }

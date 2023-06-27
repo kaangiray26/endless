@@ -50,10 +50,7 @@ async function search() {
     }
 
     // Search posts for query
-    fuse.value = new Fuse(posts.value, {
-        keys: ['title'],
-        threshold: 0.3
-    });
+    fuse.value.setCollection(posts.value);
     let result = fuse.value.search(query);
     posts.value = result.map(item => item.item);
 }
@@ -108,6 +105,10 @@ onBeforeMount(() => {
             scroll();
         }
     })
+
+    fuse.value = new Fuse(posts.value, {
+        keys: ['title']
+    });
 })
 
 onActivated(() => {
