@@ -22,6 +22,15 @@
 ## What is Endless?
 Endless is a social media curator that allows you to view all of your favorite websites in one place with an unified card based interface. It allows for users to upvote, save and comment on posts from websites even if the website doesn't support it.
 
+## Screenshots
+<div align="center">
+    <img src="images/screenshot_1.png" width=160>
+    <img src="images/screenshot_2.png" width=160>
+    <img src="images/screenshot_3.png" width=160>
+    <img src="images/screenshot_4.png" width=160>
+    <img src="images/screenshot_5.png" width=160>
+</div>
+
 ## Features
 * No account needed
 * Save posts
@@ -40,15 +49,6 @@ Endless is a social media curator that allows you to view all of your favorite w
 - [ ] Ars Technica
 - [ ] The Onion
 - [ ] Quanta Magazine
-
-## Screenshots
-<div align="center">
-    <img src="images/screenshot_1.png" width=160>
-    <img src="images/screenshot_2.png" width=160>
-    <img src="images/screenshot_3.png" width=160>
-    <img src="images/screenshot_4.png" width=160>
-    <img src="images/screenshot_5.png" width=160>
-</div>
 
 ## How to contribute?
 You can contribute to Endless by adding support for new websites or by improving the existing codebase. If you want to add support for a new website, take a look at the existing websites. Usually, each website has its own class with two methods inside the [extractors.js](src/js/extractors.js) file. If you want to improve the existing codebase, you can do so by creating a pull request.
