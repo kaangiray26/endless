@@ -49,7 +49,7 @@ class cumhuriyet {
             })))
     }
 
-    async get_post(id) {
+    async get_post(id, request = null, args = null) {
         return await fetch(`https://www.cumhuriyet.com.tr/${id}`)
             .then(res => res.text())
             .then(str => new window.DOMParser().parseFromString(str, "text/html"))
@@ -123,7 +123,7 @@ class darknet_diaries {
         return posts;
     }
 
-    async get_post(id) {
+    async get_post(id, request = null, args = null) {
         return await fetch(`https://darknetdiaries.com/episode/${id}`)
             .then(res => res.text())
             .then(str => new window.DOMParser().parseFromString(str, "text/html"))
@@ -158,7 +158,7 @@ class gaming_on_linux {
             .catch(err => []);
     }
 
-    async get_post(id) {
+    async get_post(id, request = null, args = null) {
         return await fetch(`https://www.gamingonlinux.com/${id}`)
             .then(res => res.text())
             .then(str => new window.DOMParser().parseFromString(str, "text/html"))
@@ -193,7 +193,7 @@ class hacker_news {
             .catch(err => []);
     }
 
-    async get_post(id) {
+    async get_post(id, request = null, args = null) {
         return await fetch(`https://news.ycombinator.com/item?id=${id}`)
             .then(res => res.text())
             .then(str => new window.DOMParser().parseFromString(str, "text/html"))
@@ -228,7 +228,7 @@ class slashdot {
             .catch(err => []);
     }
 
-    async get_post(id) {
+    async get_post(id, request = null, args = null) {
         return await fetch(`https://slashdot.org/api/v1/${id}.json?api_key=MdotSLEDY7Ss2nEy7Op9lkKJctCqbGjWUBAUsatNKsQ`)
             .then(res => res.json())
             .then(data => ({
@@ -263,7 +263,7 @@ class wikipedia {
             .catch(err => []);
     }
 
-    async get_post(id) {
+    async get_post(id, request = null, args = null) {
         return await request.get({
             url: `https://en.wikipedia.org/w/api.php?action=query&format=json&prop=info&pageids=${id}`
         })
