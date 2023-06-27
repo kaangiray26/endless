@@ -251,6 +251,7 @@ class wikipedia {
         // return await CapacitorHttp.get({
         //     url: "https://en.wikipedia.org/w/api.php?action=query&list=random&rnnamespace=0&rnlimit=12&format=json"
         // })
+        console.log("Making request with fetch...");
         return await fetch("https://en.wikipedia.org/w/api.php?action=query&list=random&rnnamespace=0&rnlimit=12&format=json")
             // .then(res => res.data)
             .then(res => res.json())
@@ -345,16 +346,6 @@ class quanta_magazine {
     }
 }
 
-const extractors = {
-    "cumhuriyet": new cumhuriyet(),
-    "darknet-diaries": new darknet_diaries(),
-    "gaming-on-linux": new gaming_on_linux(),
-    "hacker-news": new hacker_news(),
-    "slashdot": new slashdot(),
-    "wikipedia": new wikipedia(),
-    "quanta-magazine": new quanta_magazine(),
-}
-
 const list = [
     {
         "name": "Wikipedia",
@@ -392,5 +383,15 @@ const list = [
         "path": "/discover/quanta-magazine"
     }
 ]
+
+const extractors = {
+    "cumhuriyet": new cumhuriyet(),
+    "darknet-diaries": new darknet_diaries(),
+    "gaming-on-linux": new gaming_on_linux(),
+    "hacker-news": new hacker_news(),
+    "slashdot": new slashdot(),
+    "wikipedia": new wikipedia(),
+    "quanta-magazine": new quanta_magazine(),
+}
 
 export { extractors, list }

@@ -19,8 +19,7 @@
 <script setup>
 import { ref, onBeforeMount, onActivated } from 'vue';
 import { useRouter } from 'vue-router';
-// import { extractors } from "/js/extractors.js";
-import { extractors as extractors } from "https://cdn.jsdelivr.net/gh/kaangiray26/endless@master/src/js/extractors.min.js";
+import { extractors as extractors } from "https://cdn.jsdelivr.net/gh/kaangiray26/endless@latest/src/js/extractors.js";
 import Fuse from 'fuse.js';
 import Post from '/components/SingleShortPost.vue';
 
