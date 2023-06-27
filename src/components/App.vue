@@ -21,6 +21,6 @@ import Toolbar from "./Toolbar.vue";
 const router = useRouter();
 
 async function reload() {
-    router.go();
+    location.reload(true);
 }
 </script>

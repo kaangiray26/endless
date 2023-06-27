@@ -119,7 +119,7 @@ async function upvote() {
     if (upvote) {
         // Remove the upvote
         let response = await remove_upvotes(props.obj.page, upvote.identifier);
-        if (!response.success) {
+        if (!response || !response.success) {
             upvoting.value = false;
             return
         }
@@ -134,7 +134,7 @@ async function upvote() {
 
     // Post the upvote
     let response = await post_upvotes(props.obj.page);
-    if (!response.success) {
+    if (!response || !response.success) {
         upvoting.value = false;
         return
     }
@@ -150,7 +150,7 @@ async function upvote() {
 
 async function _remove_comments() {
     let response = await remove_comments(props.obj.page, props.obj.identifier);
-    if (!response.success) {
+    if (!response || !response.success) {
         return
     }
 

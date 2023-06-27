@@ -19,7 +19,7 @@ const ex = ref(null);
 const item = ref(null);
 
 async function setup() {
-    let response = await ex.value.get_post(router.currentRoute.value.params.id.join("/"));
+    let response = await ex.value.get_post(router.currentRoute.value.params.id.join("/"), CapacitorHttp);
     if (!response) {
         return;
     }

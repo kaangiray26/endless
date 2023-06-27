@@ -151,7 +151,7 @@ async function upvote() {
     if (upvote) {
         // Remove the upvote
         let response = await remove_upvotes(props.obj.page, upvote.identifier);
-        if (!response.success) {
+        if (!response || !response.success) {
             upvoting.value = false;
             return
         }
@@ -167,7 +167,7 @@ async function upvote() {
 
     // Post the upvote
     let response = await post_upvotes(props.obj.page);
-    if (!response.success) {
+    if (!response || !response.success) {
         upvoting.value = false;
         return
     }
@@ -210,7 +210,7 @@ async function save() {
 
 async function _get_upvotes() {
     let response = await get_upvotes(props.obj.page);
-    if (!response.success) {
+    if (!response || !response.success) {
         return
     }
 
@@ -219,7 +219,7 @@ async function _get_upvotes() {
 
 async function _get_comments() {
     let response = await get_comments(props.obj.page, offset.value);
-    if (!response.success) {
+    if (!response || !response.success) {
         return
     }
 
@@ -243,7 +243,7 @@ async function comment() {
     // Post the comment
     let text = comment_text.value;
     let response = await post_comments(props.obj.page, text);
-    if (!response.success) {
+    if (!response || !response.success) {
         commenting.value = false;
         return
     }
@@ -268,6 +268,7 @@ async function comment() {
 onBeforeMount(() => {
     _get_upvotes();
     _get_comments();
+
     get_preview();
     check_upvoted();
     check_saved();
