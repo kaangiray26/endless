@@ -13,7 +13,7 @@ for entry in "$search_dir"/*.js
 do
   tmp="${entry#*extractors/}"
   fname="${tmp%.*}"
-  echo "$fname"
+  echo Compressing "$fname".js
   ./node_modules/.bin/terser ./extractors/"$fname".js --compress --output=./min/"$fname".min.js
 done
 
