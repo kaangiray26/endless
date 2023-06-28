@@ -33,5 +33,10 @@
         "name": "Quanta Magazine",
         "image": "https://www.quantamagazine.org/favicon.png",
         "url": "https://kaangiray26.github.io/endless/min/quanta-magazine.min.js"
+    },
+    "reddit": {
+        "name": "Reddit",
+        "image": "https://www.redditstatic.com/desktop2x/img/favicon/favicon-96x96.png",
+        "url": "https://kaangiray26.github.io/endless/min/reddit.min.js"
     }
 }
