@@ -50,6 +50,7 @@ Download the APK from [GitHub Releases](https://github.com/kaangiray26/endless/r
 - [x] Darknet Diaries
 - [x] Slashdot
 - [x] Quanta Magazine
+- [x] Reddit
 - [ ] Ars Technica
 - [ ] The Onion
 
