@@ -25,7 +25,7 @@ const extractor = () => {
     }
 
     async function get_post() {
-        //
+        return null;
     }
 
     return {
