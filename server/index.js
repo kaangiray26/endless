@@ -19,6 +19,7 @@ app.use("/about", express.static(www))
 
 // Routes
 app.get("/", db.get_specs)
+app.get("/posts", db.posts)
 app.post("/upvotes", db.upvotes)
 app.post("/comments", db.comments)
 

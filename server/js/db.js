@@ -56,6 +56,84 @@ async function get_specs(req, res, next) {
     res.status(200).json(specs);
 }
 
+async function posts(req, res, next) {
+    if (!req.query.sort) {
+        res.status(400).json({
+            "success": false,
+            "error": "No sort provided."
+        })
+        return;
+    }
+
+    if (req.query.sort == "top") {
+        db.task(async t => {
+            let posts = await t.manyOrNone("SELECT post, COUNT(*) FROM upvotes GROUP BY post ORDER BY COUNT(*) DESC LIMIT 10");
+
+            res.status(200).json({
+                "success": true,
+                "posts": posts
+            })
+        }).catch(error => {
+            res.status(500).json({
+                "success": false,
+                "error": error
+            })
+        })
+        return
+    }
+
+    if (req.query.sort == "new") {
+        db.task(async t => {
+            let posts = await t.manyOrNone("SELECT post, MAX(created_at) AS last_created_at FROM (SELECT post, created_at FROM upvotes UNION ALL SELECT post, created_at FROM comments) AS combined GROUP BY post ORDER BY last_created_at DESC LIMIT 10;");
+
+            res.status(200).json({
+                "success": true,
+                "posts": posts
+            })
+        }).catch(error => {
+            res.status(500).json({
+                "success": false,
+                "error": error
+            })
+        })
+        return
+    }
+
+    if (req.query.sort == "controversial") {
+        db.task(async t => {
+            let posts = await t.manyOrNone("SELECT post, COUNT(*) FROM comments GROUP BY post ORDER BY COUNT(*) DESC LIMIT 10");
+
+            res.status(200).json({
+                "success": true,
+                "posts": posts
+            })
+        }).catch(error => {
+            res.status(500).json({
+                "success": false,
+                "error": error
+            })
+        })
+        return
+    }
+
+    if (req.query.sort == "hot") {
+        db.task(async t => {
+            let posts = await t.manyOrNone("SELECT post, COUNT(*) FROM upvotes WHERE created_at >= NOW() - INTERVAL '1 day' GROUP BY post ORDER BY COUNT(*) DESC LIMIT 10");
+
+            res.status(200).json({
+                "success": true,
+                "posts": posts
+            })
+        }).catch(error => {
+            res.status(500).json({
+                "success": false,
+                "error": error
+            })
+        })
+        return
+    }
+}
+
 async function upvotes(req, res, next) {
     if (!req.body.action) {
         res.status(400).json({
@@ -234,7 +312,8 @@ const exports = {
     init,
     get_specs,
     upvotes,
-    comments
+    comments,
+    posts
 }
 
 export default exports;

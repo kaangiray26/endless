@@ -14,6 +14,12 @@
         "image": "https://www.gamingonlinux.com/templates/default/images/favicons/favicon.ico",
         "url": "https://kaangiray26.github.io/endless/min/gaming-on-linux.min.js"
     },
+    "gist": {
+        "name": "GitHub Gists",
+        "image": "https://github.githubassets.com/pinned-octocat.svg",
+        "url": "https://kaangiray26.github.io/endless/min/gist.min.js",
+        "hidden": true
+    },
     "hacker-news": {
         "name": "Hacker News",
         "image": "https://news.ycombinator.com/favicon.ico",

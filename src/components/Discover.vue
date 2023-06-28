@@ -8,17 +8,19 @@
                 @input="search">
         </div>
         <ul class="list-group list-group-flush border-0">
-            <li v-for="extractor in extractors" class="list-group-item border rounded clickable click-effect p-0 mt-2"
-                @click="redirect(extractor[0])" @touchstart="effect">
-                <div class="d-flex align-items-center list-div p-1">
-                    <div class="d-flex me-2">
-                        <img class="icon rounded-5 p-1" :src="extractor[1].image">
+            <div v-for="extractor in extractors">
+                <li v-if="!extractor.hidden" class="list-group-item border rounded clickable click-effect p-0 mt-2"
+                    @click="redirect(extractor[0])" @touchstart="effect">
+                    <div class="d-flex align-items-center list-div p-1">
+                        <div class="d-flex me-2">
+                            <img class="icon rounded-5 p-1" :src="extractor[1].image">
+                        </div>
+                        <div>
+                            <h6 class="m-0">{{ extractor[1].name }}</h6>
+                        </div>
                     </div>
-                    <div>
-                        <h6 class="m-0">{{ extractor[1].name }}</h6>
-                    </div>
-                </div>
-            </li>
+                </li>
+            </div>
         </ul>
         <router-view></router-view>
     </div>

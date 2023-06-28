@@ -1,20 +1,14 @@
 <template>
+    <div class="d-flex justify-content-evenly">
+        <button type="button" class="btn btn-touch click-effect">Hot</button>
+        <button type="button" class="btn btn-touch click-effect">New</button>
+        <button type="button" class="btn btn-touch click-effect">Controversial</button>
+        <button type="button" class="btn btn-touch click-effect">Top</button>
+    </div>
     <div class="row row-cols-1 g-0 m-3 mt-0">
-        <div class="col-12 mt-3">
-            <div class="card border-0 theme-shadow rounded">
-                <div class="card-body p-0">
-                    <div class="border-bottom px-2 py-1">
-                        <span class="fw-bold">endless</span>
-                    </div>
-                    <div class="px-2 py-1">
-                        <span>Follow some sites to fill your feed!</span>
-                    </div>
-                    <div class="d-flex square">
-                        <img class="img-post rounded-bottom" src="/images/feed.jpg">
-                    </div>
-                </div>
-            </div>
-        </div>
+        <ul class="list-group list-group-flush border-0 pt-0">
+            <Post :obj="item" />
+        </ul>
         <div v-if="last_upvote" class="col-12 mt-3">
             <div class="card border-0 theme-shadow rounded">
                 <div class="card-body p-0">
@@ -61,11 +55,22 @@
 import { ref, onBeforeMount } from 'vue';
 import { useRouter } from 'vue-router';
 import { get_latest } from "/js/utils.js";
+import Post from "/components/SingleShortPost.vue";
 
 const router = useRouter();
 
 const last_upvote = ref(null);
 const last_comment = ref(null);
+
+const item = {
+    title: "Upvote and comment on posts to fill this feed!",
+    author: "kaangiray26",
+    url: "https://gist.github.com/kaangiray26/7be9145c92d228cbbec67d4b7089188a",
+    id: "7be9145c92d228cbbec67d4b7089188a",
+    dt: 1687982255,
+    image: "https://raw.githubusercontent.com/kaangiray26/endless/main/src/public/favicon.png",
+    page: "/discover/gist/7be9145c92d228cbbec67d4b7089188a",
+}
 
 async function setup() {
     let response = await get_latest();
@@ -97,7 +102,6 @@ function format_date(dt) {
     })
 
     return `${date_string} ${time_string}`
-
 }
 
 onBeforeMount(() => {

@@ -6,8 +6,8 @@
         </div>
         <div class="input-group mt-2">
             <span class="input-group-text bi bi-server" id="basic-addon1"></span>
-            <input type="text" class="form-control" placeholder="https://endless.buzl.uk" aria-label="Server"
-                aria-describedby="basic-addon1" :value="get_server()">
+            <input type="text" class="form-control" placeholder="https://home.buzl.uk" aria-label="Server"
+                aria-describedby="basic-addon1" :value="get_server()" @focusout="change_server">
         </div>
         <div class="input-group mt-2">
             <span class="input-group-text" :class="{ 'bi bi-circle': !reloaded, 'bi bi-circle-fill': reloaded }"
@@ -56,5 +56,10 @@ async function reload_extractors(obj) {
 
     reloading.value = false;
     reloaded.value = true;
+}
+
+async function change_server(obj) {
+    if (!obj.target.value.length) return;
+    localStorage.setItem('server', JSON.stringify(obj.target.value));
 }
 </script>
