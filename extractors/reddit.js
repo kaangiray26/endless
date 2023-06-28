@@ -2,7 +2,7 @@ const extractor = () => {
     async function get_posts(page = 1, request = null, args = null) {
         if (page == 1) {
             return await request.get({
-                url: "https://reddit.com/.json?limit=25"
+                url: "https://reddit.com/.json"
             })
                 .then(res => res.data.data.children)
                 .then(posts => posts.map(post => ({
@@ -19,7 +19,7 @@ const extractor = () => {
         }
 
         return await request.get({
-            url: `https://reddit.com/.json?limit=25&after=${args.fullname}`
+            url: `https://reddit.com/.json?after=${args.fullname}`
         })
             .then(res => res.data.data.children)
             .then(posts => posts.map(post => ({
