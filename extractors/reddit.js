@@ -11,7 +11,7 @@ const extractor = () => {
                     url: post.data.url,
                     id: post.data.permalink,
                     dt: post.data.created,
-                    image: post.data.preview ? post.data.preview.images[0].source.url : "/favicon.svg",
+                    image: post.data.thumnail || "/favicon.svg",
                     page: "/discover/reddit" + post.data.permalink,
                     fullname: post.data.name
                 })))
@@ -28,7 +28,7 @@ const extractor = () => {
                 url: post.data.url,
                 id: post.data.permalink,
                 dt: post.data.created,
-                image: post.data.preview ? post.data.preview.images[0].source.url : "/favicon.svg",
+                image: post.data.thumnail || "/favicon.svg",
                 page: "/discover/reddit" + post.data.permalink,
                 fullname: post.data.name
             })))
@@ -46,7 +46,7 @@ const extractor = () => {
                 url: post.data.url,
                 id: post.data.permalink,
                 dt: post.data.created,
-                image: post.data.preview ? post.data.preview.images[0].source.url : "/favicon.svg",
+                image: post.data.thumnail || "/favicon.svg",
                 page: "/discover/reddit" + post.data.permalink,
             }))
             .catch(err => null);
