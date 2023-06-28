@@ -20,7 +20,7 @@
 </div>
 
 ## What is Endless?
-Endless is a social media curator that allows you to view all of your favorite websites in one place with an unified card based interface. It allows for users to upvote, save and comment on posts from websites even if the website doesn't support it.
+Endless is a social media curator that allows you to view all of your favorite websites in one place with a unified card-based interface. It allows for users to upvote, save and comment on posts from websites even if the website doesn't support it.
 
 ## Screenshots
 <div align="center">
