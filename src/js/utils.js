@@ -104,4 +104,15 @@ async function remove_comments(id, identifier) {
         .catch(err => null);
 }
 
-export { get_server, get_upvotes, post_upvotes, remove_upvotes, get_comments, post_comments, remove_comments }
+async function reload_extractors() {
+    if (!localStorage.getItem("list")) {
+        let response = fetch("https://kaangiray26.github.io/endless/list.json")
+            .then(res => res.json())
+            .catch(err => null);
+        if (response) {
+            localStorage.setItem("list", JSON.stringify(response));
+        }
+    }
+}
+
+export { get_server, get_upvotes, post_upvotes, remove_upvotes, get_comments, post_comments, remove_comments, reload_extractors }

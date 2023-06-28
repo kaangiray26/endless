@@ -15,30 +15,33 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
+import { onBeforeMount } from 'vue';
 import { useRouter } from 'vue-router';
 import Toolbar from "./Toolbar.vue";
 
 const router = useRouter();
 
 async function reload() {
-    location.reload(true);
+    router.go();
 }
 
-onMounted(async () => {
-    let list = await fetch("https://kaangiray26.github.io/endless/extractors/list.json")
+async function check() {
+    let list = JSON.parse(localStorage.getItem('list'));
+    if (list.length) {
+        return
+    }
+
+    let response = await fetch("https://kaangiray26.github.io/endless/list.json")
         .then(res => res.json())
         .catch(err => null);
+    if (!response) {
+        return
+    }
 
-    let js = await fetch(list['hacker-news'].url)
-        .then(res => res.text())
-        .then(res => res + "return extractor();")
+    localStorage.setItem('list', JSON.stringify(response));
+}
 
-    console.log(js);
-
-    let ex = new Function(js)();
-
-    let posts = await ex.get_posts();
-    console.log(posts);
+onBeforeMount(() => {
+    check();
 })
 </script>

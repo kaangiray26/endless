@@ -1,1 +1,14 @@
-const extractor=()=>({get_posts:async function(){return{title:"get_posts"}},get_post:async function(){return{title:"get_post"}}});
+const extractor = () => {
+    async function get_posts() {
+        //
+    }
+
+    async function get_post() {
+        //
+    }
+
+    return {
+        get_posts: get_posts,
+        get_post: get_post
+    }
+}

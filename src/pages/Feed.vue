@@ -20,11 +20,12 @@
 import { ref, onBeforeMount, onActivated } from 'vue';
 import { useRouter } from 'vue-router';
 import { CapacitorHttp } from '@capacitor/core';
-import { extractors } from "https://kaangiray26.github.io/endless/src/js/extractors.min.js"
 import Fuse from 'fuse.js';
 import Post from '/components/SingleShortPost.vue';
 
 const router = useRouter()
+
+const extractors = ref([]);
 
 const text = ref("");
 const fuse = ref(null);
@@ -59,6 +60,14 @@ async function search() {
 async function setup() {
     loaded.value = false;
 
+    // Get the extractor script
+    let js = await fetch(extractors.value[router.currentRoute.value.params.domain].url)
+        .then(res => res.text())
+        .then(res => res + "return extractor();")
+        .catch(err => null);
+    ex.value = new Function(js)();
+
+    // Get posts
     let response = await ex.value.get_posts(1, CapacitorHttp);
     if (!response.length) {
         loaded.value = true;
@@ -94,7 +103,7 @@ async function scroll() {
 
 onBeforeMount(() => {
     // Set the extractor
-    ex.value = extractors[router.currentRoute.value.params.domain];
+    extractors.value = JSON.parse(localStorage.getItem('list'));
 
     // Run setup
     setup();

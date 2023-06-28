@@ -9,13 +9,13 @@
         </div>
         <ul class="list-group list-group-flush border-0">
             <li v-for="extractor in extractors" class="list-group-item border rounded clickable click-effect p-0 mt-2"
-                @click="redirect(extractor.path)" @touchstart="effect">
+                @click="redirect(extractor[0])" @touchstart="effect">
                 <div class="d-flex align-items-center list-div p-1">
                     <div class="d-flex me-2">
-                        <img class="icon rounded-5 p-1" :src="extractor.image">
+                        <img class="icon rounded-5 p-1" :src="extractor[1].image">
                     </div>
                     <div>
-                        <h6 class="m-0">{{ extractor.name }}</h6>
+                        <h6 class="m-0">{{ extractor[1].name }}</h6>
                     </div>
                 </div>
             </li>
@@ -28,16 +28,15 @@
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import Fuse from 'fuse.js';
-import { list } from "https://kaangiray26.github.io/endless/src/js/extractors.min.js"
 
 const router = useRouter();
-const extractors = ref(list);
+const extractors = ref([]);
 
 const text = ref("");
 const fuse = ref(null);
 
 async function redirect(path) {
-    router.push(path);
+    router.push("/discover/" + path);
 }
 
 async function effect(obj) {
@@ -56,6 +55,7 @@ async function search() {
 }
 
 onMounted(() => {
+    extractors.value = Object.entries(JSON.parse(localStorage.getItem('list')));
     fuse.value = new Fuse(extractors.value, {
         keys: ['name']
     });

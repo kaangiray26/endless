@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
 import App from '/components/App.vue'
 import router from '/router'
+import { reload_extractors } from "/js/utils.js"
 
 // Import our custom CSS
 import '/scss/styles.scss'
@@ -29,8 +30,6 @@ if (!localStorage.getItem("commented")) {
     localStorage.setItem("commented", JSON.stringify([]));
 }
 
-if (!localStorage.getItem("tag")) {
-    localStorage.setItem("tag", JSON.stringify("1.0"));
-}
-
-createApp(App).use(router).mount('#app');
+reload_extractors().then(() => {
+    createApp(App).use(router).mount('#app');
+})
