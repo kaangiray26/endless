@@ -8,10 +8,10 @@ const extractor = () => {
                 .then(posts => posts.map(post => ({
                     title: post.data.title,
                     author: post.data.author,
-                    url: post.data.url,
+                    url: "https://www.reddit.com" + post.data.permalink,
                     id: post.data.permalink,
                     dt: post.data.created,
-                    image: post.data.thumnail || "/favicon.svg",
+                    image: post.data.thumbnail || "/favicon.svg",
                     page: "/discover/reddit" + post.data.permalink,
                     fullname: post.data.name
                 })))
@@ -25,10 +25,10 @@ const extractor = () => {
             .then(posts => posts.map(post => ({
                 title: post.data.title,
                 author: post.data.author,
-                url: post.data.url,
+                url: "https://www.reddit.com" + post.data.permalink,
                 id: post.data.permalink,
                 dt: post.data.created,
-                image: post.data.thumnail || "/favicon.svg",
+                image: post.data.thumbnail || "/favicon.svg",
                 page: "/discover/reddit" + post.data.permalink,
                 fullname: post.data.name
             })))
