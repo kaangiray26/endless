@@ -18,7 +18,7 @@ const extractor = () => {
 
     async function get_post(id, request = null, args = null) {
         return await request.get({
-            url: "https://www.reddit.com" + id + ".json"
+            url: "https://www.reddit.com/" + id + "/.json"
         })
             .then(res => res.data[0].data.children[0])
             .then(post => ({
