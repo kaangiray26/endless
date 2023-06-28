@@ -105,14 +105,17 @@ async function remove_comments(id, identifier) {
 }
 
 async function reload_extractors() {
-    if (!localStorage.getItem("list")) {
+    let list = JSON.parse(localStorage.getItem("list"));
+
+    if (!list || !list.length) {
         console.log("List not found, fetching from server...");
         let response = fetch("https://kaangiray26.github.io/endless/list.json")
             .then(res => res.json())
             .catch(err => null);
-        if (response) {
-            localStorage.setItem("list", JSON.stringify(response));
+        if (!response) {
+            localStorage.setItem("list", JSON.stringify([]));
         }
+        localStorage.setItem("list", JSON.stringify(response));
     }
 }
 
