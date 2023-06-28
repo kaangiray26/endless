@@ -10,15 +10,24 @@
 import { ref, onBeforeMount, onActivated } from 'vue';
 import { useRouter } from 'vue-router';
 import { CapacitorHttp } from '@capacitor/core';
-import { extractors } from "https://kaangiray26.github.io/endless/src/js/extractors.min.js";
 import Post from '/components/SinglePost.vue';
 
 const router = useRouter();
+
+const extractors = ref([]);
 
 const ex = ref(null);
 const item = ref(null);
 
 async function setup() {
+    // Get the extractor script
+    let js = await fetch(extractors.value[router.currentRoute.value.params.domain].url)
+        .then(res => res.text())
+        .then(res => res + "return extractor();")
+        .catch(err => null);
+    ex.value = new Function(js)();
+
+    // Get post
     let response = await ex.value.get_post(router.currentRoute.value.params.id.join("/"), CapacitorHttp);
     if (!response) {
         return;
@@ -29,7 +38,7 @@ async function setup() {
 
 onBeforeMount(() => {
     // Set the extractor
-    ex.value = extractors[router.currentRoute.value.params.domain];
+    extractors.value = JSON.parse(localStorage.getItem('list'));
 
     // Run setup
     setup();
