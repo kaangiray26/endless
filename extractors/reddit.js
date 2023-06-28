@@ -1,7 +1,25 @@
 const extractor = () => {
     async function get_posts(page = 1, request = null, args = null) {
+        if (page == 1) {
+            return await request.get({
+                url: "https://reddit.com/.json?limit=25"
+            })
+                .then(res => res.data.data.children)
+                .then(posts => posts.map(post => ({
+                    title: post.data.title,
+                    author: post.data.author,
+                    url: post.data.url,
+                    id: post.data.permalink,
+                    dt: post.data.created,
+                    image: post.data.preview ? post.data.preview.images[0].source.url : "/favicon.svg",
+                    page: "/discover/reddit" + post.data.permalink,
+                    fullname: post.data.name
+                })))
+                .catch(err => []);
+        }
+
         return await request.get({
-            url: "https://reddit.com/.json"
+            url: `https://reddit.com/.json?limit=25&after=${args.fullname}`
         })
             .then(res => res.data.data.children)
             .then(posts => posts.map(post => ({
@@ -10,8 +28,9 @@ const extractor = () => {
                 url: post.data.url,
                 id: post.data.permalink,
                 dt: post.data.created,
-                image: "/favicon.svg",
+                image: post.data.preview ? post.data.preview.images[0].source.url : "/favicon.svg",
                 page: "/discover/reddit" + post.data.permalink,
+                fullname: post.data.name
             })))
             .catch(err => []);
     }
@@ -27,7 +46,7 @@ const extractor = () => {
                 url: post.data.url,
                 id: post.data.permalink,
                 dt: post.data.created,
-                image: "/favicon.svg",
+                image: post.data.preview ? post.data.preview.images[0].source.url : "/favicon.svg",
                 page: "/discover/reddit" + post.data.permalink,
             }))
             .catch(err => null);
