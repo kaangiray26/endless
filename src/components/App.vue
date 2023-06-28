@@ -15,7 +15,6 @@
 </template>
 
 <script setup>
-import { onBeforeMount } from 'vue';
 import { useRouter } from 'vue-router';
 import Toolbar from "./Toolbar.vue";
 
