@@ -12,7 +12,7 @@
         <div class="input-group mt-2">
             <span class="input-group-text" :class="{ 'bi bi-circle': !reloaded, 'bi bi-circle-fill': reloaded }"
                 id="basic-addon2"></span>
-            <button type="button" class="btn btn-dark flex-fill" :class="{ 'text-dark': reloading }" :disabled="reloading"
+            <button type="button" class="btn btn-touch-border click-effect" :disabled="reloading"
                 @click="reload_extractors">Reload extractors</button>
         </div>
         <div class="d-flex justify-content-between align-items-center mt-3">
