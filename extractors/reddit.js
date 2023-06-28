@@ -46,7 +46,7 @@ const extractor = () => {
                 url: post.data.url,
                 id: post.data.permalink,
                 dt: post.data.created,
-                image: post.data.thumnail || "/favicon.svg",
+                image: post.data.thumbnail || "/favicon.svg",
                 page: "/discover/reddit" + post.data.permalink,
             }))
             .catch(err => null);
