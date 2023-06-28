@@ -57,12 +57,14 @@ Download the APK from [GitHub Releases](https://github.com/kaangiray26/endless/r
 You can use the [docker-compose.yml](server/docker-compose.yml) file to start the server.
 
 ## How to contribute?
-You can contribute to Endless by adding support for new websites or by improving the existing codebase. If you want to add support for a new website, take a look at the existing websites. Usually, each website has its own class with two methods inside the [extractors.js](src/js/extractors.js) file. If you want to improve the existing codebase, you can do so by creating a pull request.
+You can contribute to Endless by adding support for new websites or by improving the existing codebase. If you want to add support for a new website, take a look at the existing extractors. Usually, each website has its own extractor with two methods inside the [extractors](extractors) directory. If you want to improve the existing codebase, you can do so by creating a pull request.
 
 ## Extractors
-Prebuilt versions:
-* [extractors.js](src/js/extractors.js)
-* [extractors.min.js](src/js/extractors.min.js)
+Take a look at the extractor list below to see which websites are supported at the moment:
+* [list.json](list.json)
+
+Prebuilt versions of the extractors are also located in the [min](min) directory. 
+* For example: [Hacker News](min/hacker-news.min.js)
 
 ## Wiki
 > Coming soon
