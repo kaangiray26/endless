@@ -12,8 +12,8 @@
         <div class="input-group mt-2">
             <span class="input-group-text" :class="{ 'bi bi-circle': !reloaded, 'bi bi-circle-fill': reloaded }"
                 id="basic-addon2"></span>
-            <button type="button" class="btn btn-touch-border click-effect" :disabled="reloading"
-                @click="reload_extractors">Reload extractors</button>
+            <button type="button" class="btn btn-touch-border click-effect" @click="reload_extractors">Reload
+                extractors</button>
         </div>
         <div class="d-flex justify-content-between align-items-center mt-3">
             <router-link to="/profile/saved" class="btn btn-touch click-effect"
@@ -39,8 +39,9 @@ const path = computed(() => router.currentRoute.value.path);
 const reloading = ref(false);
 const reloaded = ref(false);
 
-async function reload_extractors() {
+async function reload_extractors(obj) {
     if (reloading.value) return;
+
     reloading.value = true;
     reloaded.value = false;
 

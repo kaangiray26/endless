@@ -107,16 +107,23 @@ async function remove_comments(id, identifier) {
 async function reload_extractors() {
     let list = JSON.parse(localStorage.getItem("list"));
 
-    if (!list || !list.length) {
-        console.log("List not found, fetching from server...");
-        let response = fetch("https://kaangiray26.github.io/endless/list.json")
+    if (!list || !Object.keys(list).length) {
+        let response = await fetch("https://kaangiray26.github.io/endless/list.json")
             .then(res => res.json())
             .catch(err => null);
         if (!response) {
             localStorage.setItem("list", JSON.stringify([]));
+            return
         }
         localStorage.setItem("list", JSON.stringify(response));
     }
 }
 
-export { get_server, get_upvotes, post_upvotes, remove_upvotes, get_comments, post_comments, remove_comments, reload_extractors }
+async function get_latest() {
+    let server = get_server();
+    return await fetch(server)
+        .then(res => res.json())
+        .catch(err => null);
+}
+
+export { get_server, get_upvotes, post_upvotes, remove_upvotes, get_comments, post_comments, remove_comments, reload_extractors, get_latest }

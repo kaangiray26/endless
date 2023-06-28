@@ -3,10 +3,9 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && npx cap sync",
     "preview": "vite preview",
-    "deploy": "sh deploy.sh",
-    "production": "vite build && ./node_modules/.bin/terser src/js/extractors.js --compress --output=src/js/extractors.min.js && npx cap copy"
+    "deploy": "sh deploy.sh"
   },
   "dependencies": {
     "@capacitor/android": "^5.0.5",
