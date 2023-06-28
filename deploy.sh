@@ -5,11 +5,11 @@ set -e
 vite build
 
 # Capacitor sync
-printf "\nSyncing to Android..."
+printf "\nSyncing to Android...\n"
 npx cap sync
 
 # Minify extractors
-printf "\nMinifying extractors..."
+printf "\nMinifying extractors...\n"
 search_dir=./extractors
 for entry in "$search_dir"/*.js
 do
@@ -20,7 +20,7 @@ do
 done
 
 # Push to git
-printf "\nPushing to git..."
+printf "\nPushing to git...\n"
 git add -A
 git commit -m "deploy via script"
 git push
