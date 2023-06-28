@@ -30,6 +30,8 @@ import { useRouter } from 'vue-router';
 import Fuse from 'fuse.js';
 
 const router = useRouter();
+
+const list = ref([]);
 const extractors = ref([]);
 
 const text = ref("");
@@ -46,7 +48,7 @@ async function effect(obj) {
 async function search() {
     let query = text.value;
     if (query.length == 0) {
-        extractors.value = list;
+        extractors.value = Object.entries(list.value);
         return;
     }
 
@@ -55,9 +57,10 @@ async function search() {
 }
 
 onMounted(() => {
-    extractors.value = Object.entries(JSON.parse(localStorage.getItem('list')));
+    list.value = JSON.parse(localStorage.getItem('list'));
+    extractors.value = Object.entries(list.value);
     fuse.value = new Fuse(extractors.value, {
-        keys: ['name']
+        keys: ['1.name']
     });
 })
 </script>

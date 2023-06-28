@@ -2,36 +2,36 @@
     "wikipedia": {
         "name": "Wikipedia",
         "image": "https://en.wikipedia.org/static/favicon/wikipedia.ico",
-        "url": "https://kaangiray26.github.io/endless/extractors/wikipedia.min.js"
+        "url": "https://kaangiray26.github.io/endless/min/wikipedia.min.js"
     },
     "hacker-news": {
         "name": "Hacker News",
         "image": "https://news.ycombinator.com/favicon.ico",
-        "url": "https://kaangiray26.github.io/endless/extractors/hacker-news.min.js"
+        "url": "https://kaangiray26.github.io/endless/min/hacker-news.min.js"
     },
     "cumhuriyet": {
         "name": "Cumhuriyet",
         "image": "https://www.cumhuriyet.com.tr/Content/images/icons/favicon.ico",
-        "url": "https://kaangiray26.github.io/endless/extractors/cumhuriyet.min.js"
+        "url": "https://kaangiray26.github.io/endless/min/cumhuriyet.min.js"
     },
     "gaming-on-linux": {
         "name": "GamingOnLinux",
         "image": "https://www.gamingonlinux.com/templates/default/images/favicons/favicon.ico",
-        "url": "https://kaangiray26.github.io/endless/extractors/gaming-on-linux.min.js"
+        "url": "https://kaangiray26.github.io/endless/min/gaming-on-linux.min.js"
     },
     "darknet-diaries": {
         "name": "Darknet Diaries",
         "image": "https://darknetdiaries.com/imgs/favicon.png",
-        "url": "https://kaangiray26.github.io/endless/extractors/darknet-diaries.min.js"
+        "url": "https://kaangiray26.github.io/endless/min/darknet-diaries.min.js"
     },
     "slashdot": {
         "name": "Slashdot",
         "image": "https://slashdot.org/favicon.ico",
-        "url": "https://kaangiray26.github.io/endless/extractors/slashdot.min.js"
+        "url": "https://kaangiray26.github.io/endless/min/slashdot.min.js"
     },
     "quanta-magazine": {
         "name": "Quanta Magazine",
         "image": "https://www.quantamagazine.org/favicon.png",
-        "url": "https://kaangiray26.github.io/endless/extractors/quanta-magazine.min.js"
+        "url": "https://kaangiray26.github.io/endless/min/quanta-magazine.min.js"
     }
 }
