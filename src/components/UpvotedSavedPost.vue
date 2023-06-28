@@ -129,7 +129,7 @@ async function upvote() {
             return
         }
 
-        upvoted = upvoted.filter(item => item.page != props.obj.page && item.identifier != upvote.identifier);
+        upvoted = upvoted.filter(item => item.page != props.obj.page || item.identifier != upvote.identifier);
         localStorage.setItem("upvoted", JSON.stringify(upvoted));
         emit("refresh");
 

@@ -30,6 +30,10 @@ if (!localStorage.getItem("commented")) {
     localStorage.setItem("commented", JSON.stringify([]));
 }
 
+if (!localStorage.getItem("sort")) {
+    localStorage.setItem("sort", JSON.stringify("hot"));
+}
+
 reload_extractors().then(() => {
     createApp(App).use(router).mount('#app');
 })

@@ -119,11 +119,12 @@ async function reload_extractors() {
     }
 }
 
-async function get_latest() {
+async function get_latest(type) {
     let server = get_server();
-    return await fetch(server)
+    return await fetch(server + "/posts?sort=" + type)
         .then(res => res.json())
-        .catch(err => null);
+        .then(data => data.posts)
+        .catch(err => []);
 }
 
 export { get_server, get_upvotes, post_upvotes, remove_upvotes, get_comments, post_comments, remove_comments, reload_extractors, get_latest }

@@ -1,53 +1,31 @@
 <template>
-    <div class="d-flex justify-content-evenly">
-        <button type="button" class="btn btn-touch click-effect">Hot</button>
-        <button type="button" class="btn btn-touch click-effect">New</button>
-        <button type="button" class="btn btn-touch click-effect">Controversial</button>
-        <button type="button" class="btn btn-touch click-effect">Top</button>
+    <div class="d-flex justify-content-evenly mt-3">
+        <button type="button" class="btn btn-touch click-effect" :class="{ 'bg-dark text-light': sort == 'hot' }"
+            @click="set_sort('hot')">Hot</button>
+        <button type="button" class="btn btn-touch click-effect" :class="{ 'bg-dark text-light': sort == 'new' }"
+            @click="set_sort('new')">New</button>
+        <button type="button" class="btn btn-touch click-effect" :class="{ 'bg-dark text-light': sort == 'top' }"
+            @click="set_sort('top')">Top</button>
+        <button type="button" class="btn btn-touch click-effect" :class="{ 'bg-dark text-light': sort == 'controversial' }"
+            @click="set_sort('controversial')">Controversial</button>
     </div>
     <div class="row row-cols-1 g-0 m-3 mt-0">
         <ul class="list-group list-group-flush border-0 pt-0">
             <Post :obj="item" />
+            <li v-for="post in posts" class="list-group-item border rounded p-0 mt-3">
+                <div class="d-flex flex-column p-theme">
+                    <h6 class="m-0">{{ post.post }}</h6>
+                    <small class="text-muted">{{ get_details(post) }}</small>
+                </div>
+                <div class="d-flex justify-content-around bg-light rounded">
+                    <button type="button" class="btn btn-touch bi bi-heart invisible"></button>
+                    <button type="button" class="btn btn-touch bi bi-chat invisible"></button>
+                    <button type="button" class="btn btn-touch bi bi-bookmark invisible"></button>
+                    <button type="button" class="btn btn-touch bi bi-share invisible"></button>
+                    <button type="button" class="btn btn-touch bi bi-box-arrow-up-right" @click="comments(post)"></button>
+                </div>
+            </li>
         </ul>
-        <div v-if="last_upvote" class="col-12 mt-3">
-            <div class="card border-0 theme-shadow rounded">
-                <div class="card-body p-0">
-                    <div class="d-flex align-items-center px-2 py-1">
-                        <span class="fw-bold me-2">Last upvote</span>
-                        <small class="text-muted">{{ format_date(last_upvote.created_at) }}</small>
-                    </div>
-                    <div class="px-2">
-                        <span class="bi bi-card-text me-1"></span>
-                        <span>{{ last_upvote.post }}</span>
-                    </div>
-                    <div class="d-flex justify-content-end bg-light rounded">
-                        <button type="button" class="btn btn-touch click-effect bi bi-chat"
-                            @click="open_post(last_upvote)"></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div v-if="last_comment" class="col-12 mt-3">
-            <div class="card border-0 theme-shadow rounded">
-                <div class="card-body p-0">
-                    <div class="d-flex align-items-center px-2 py-1">
-                        <span class="fw-bold me-2">Last comment</span>
-                        <small class="text-muted">{{ format_date(last_comment.created_at) }}</small>
-                    </div>
-                    <div class="px-2">
-                        <span class="bi bi-card-text me-1"></span>
-                        <span>{{ last_comment.post }}</span>
-                    </div>
-                    <div class="d-flex p-theme border-top">
-                        <span v-html="last_comment.comment" class="text-break"></span>
-                    </div>
-                    <div class="d-flex justify-content-end bg-light rounded">
-                        <button type="button" class="btn btn-touch click-effect bi bi-chat"
-                            @click="open_post(last_comment)"></button>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </template>
 
@@ -59,8 +37,8 @@ import Post from "/components/SingleShortPost.vue";
 
 const router = useRouter();
 
-const last_upvote = ref(null);
-const last_comment = ref(null);
+const posts = ref([]);
+const sort = ref(null);
 
 const item = {
     title: "Upvote and comment on posts to fill this feed!",
@@ -73,17 +51,22 @@ const item = {
 }
 
 async function setup() {
-    let response = await get_latest();
+    let response = await get_latest(sort.value);
     if (!response) {
         return
     }
 
-    last_upvote.value = response.last_added_upvote;
-    last_comment.value = response.last_added_comment;
+    posts.value = response;
 }
 
-async function open_post(item) {
-    router.push(item.post)
+async function set_sort(type) {
+    sort.value = type;
+    localStorage.setItem('sort', JSON.stringify(type));
+    setup();
+}
+
+async function comments(obj) {
+    router.push(obj.post);
 }
 
 function format_date(dt) {
@@ -98,13 +81,32 @@ function format_date(dt) {
     let time_string = date.toLocaleString("en-GB", {
         hour: "numeric",
         minute: "numeric",
-        hour12: false,
+        hour12: true,
     })
 
     return `${date_string} ${time_string}`
 }
 
+function get_details(post) {
+    if (sort.value == 'hot') {
+        return `${post.count} pts`
+    }
+
+    if (sort.value == 'new') {
+        return format_date(post.last_created_at)
+    }
+
+    if (sort.value == 'top') {
+        return `${post.count} pts`
+    }
+
+    if (sort.value == 'controversial') {
+        return `${post.count} comments`
+    }
+}
+
 onBeforeMount(() => {
+    sort.value = JSON.parse(localStorage.getItem('sort'));
     setup();
 })
 </script>

@@ -15,7 +15,7 @@
             <button type="button" class="btn btn-touch-border click-effect" @click="reload_extractors">Reload
                 extractors</button>
         </div>
-        <div class="d-flex justify-content-between align-items-center mt-3">
+        <div class="d-flex justify-content-evenly align-items-center mt-3">
             <router-link to="/profile/saved" class="btn btn-touch click-effect"
                 :class="{ 'bg-dark text-light': path == '/profile/saved' }">Saved</router-link>
             <router-link to="/profile/upvoted" class="btn btn-touch click-effect"

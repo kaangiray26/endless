@@ -124,7 +124,7 @@ async function upvote() {
             return
         }
 
-        upvoted = upvoted.filter(item => item.page != props.obj.page && item.identifier != upvote.identifier);
+        upvoted = upvoted.filter(item => item.page != props.obj.page || item.identifier != upvote.identifier);
         localStorage.setItem("upvoted", JSON.stringify(upvoted));
 
         is_upvoted.value = false;
@@ -155,7 +155,7 @@ async function _remove_comments() {
     }
 
     let commented = JSON.parse(localStorage.getItem("commented"));
-    commented = commented.filter(item => item.page != props.obj.page && item.identifier != props.obj.identifier);
+    commented = commented.filter(item => item.page != props.obj.page || item.identifier != props.obj.identifier);
     localStorage.setItem("commented", JSON.stringify(commented));
     emit('refresh');
     return

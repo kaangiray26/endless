@@ -9,7 +9,7 @@
         </div>
         <ul class="list-group list-group-flush border-0">
             <div v-for="extractor in extractors">
-                <li v-if="!extractor.hidden" class="list-group-item border rounded clickable click-effect p-0 mt-2"
+                <li v-if="!extractor[1].hidden" class="list-group-item border rounded clickable click-effect p-0 mt-2"
                     @click="redirect(extractor[0])" @touchstart="effect">
                     <div class="d-flex align-items-center list-div p-1">
                         <div class="d-flex me-2">
