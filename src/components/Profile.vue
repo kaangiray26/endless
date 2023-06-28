@@ -9,12 +9,11 @@
             <input type="text" class="form-control" placeholder="https://endless.buzl.uk" aria-label="Server"
                 aria-describedby="basic-addon1" :value="get_server()">
         </div>
-        <div class="d-flex flex-column mt-2">
-            <button type="button" class="btn btn-dark" :class="{ 'text-dark': reloading }" :disabled="reloading"
-                @click="reload_extractors">
-                <span class="bi bi-router-fill me-2"></span>
-                <span>Reload extractors</span>
-            </button>
+        <div class="input-group mt-2">
+            <span class="input-group-text" :class="{ 'bi bi-circle': !reloaded, 'bi bi-circle-fill': reloaded }"
+                id="basic-addon2"></span>
+            <button type="button" class="btn btn-dark flex-fill" :class="{ 'text-dark': reloading }" :disabled="reloading"
+                @click="reload_extractors">Reload extractors</button>
         </div>
         <div class="d-flex justify-content-between align-items-center mt-3">
             <router-link to="/profile/saved" class="btn btn-touch click-effect"
@@ -38,10 +37,12 @@ const router = useRouter();
 
 const path = computed(() => router.currentRoute.value.path);
 const reloading = ref(false);
+const reloaded = ref(false);
 
 async function reload_extractors() {
     if (reloading.value) return;
     reloading.value = true;
+    reloaded.value = false;
 
     let response = await fetch("https://kaangiray26.github.io/endless/list.json")
         .then(res => res.json())
@@ -53,5 +54,6 @@ async function reload_extractors() {
     localStorage.setItem('list', JSON.stringify(response));
 
     reloading.value = false;
+    reloaded.value = true;
 }
 </script>
