@@ -28,7 +28,8 @@
     "koreaboo": {
         "name": "Koreaboo",
         "image": "https://www.koreaboo.com/favicon.ico",
-        "url": "https://kaangiray26.github.io/endless/min/koreaboo.min.js"
+        "url": "https://kaangiray26.github.io/endless/min/koreaboo.min.js",
+        "hidden": true
     },
     "quanta-magazine": {
         "name": "Quanta Magazine",

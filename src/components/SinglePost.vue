@@ -10,7 +10,7 @@
                 <small>📝 {{ comments.length }} cts</small>
             </div>
             <div class="d-flex square p-3">
-                <img class="img-post rounded theme-shadow" :src="obj.image" @error="placeholder">
+                <img class="img-post rounded theme-shadow" :src="obj.image" @error="placeholder" :data-src="obj.image">
             </div>
             <div class="d-flex justify-content-around rounded bg-light mx-3 mb-3">
                 <button type="button" class="btn btn-touch bi"
