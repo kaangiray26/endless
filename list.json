@@ -56,6 +56,12 @@
         "url": "https://kaangiray26.github.io/endless/min/spotify.min.js",
         "hidden": true
     },
+    "youtube-trending": {
+        "name": "YouTube Trending",
+        "image": "https://m.youtube.com/static/favicon.ico",
+        "url": "https://kaangiray26.github.io/endless/min/youtube-trending.min.js",
+        "hidden": true
+    },
     "wikipedia": {
         "name": "Wikipedia",
         "image": "https://en.wikipedia.org/static/favicon/wikipedia.ico",
