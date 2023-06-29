@@ -28,9 +28,7 @@ const extractor = () => {
                 Authorization: `Bearer ${credentials.accessToken}`,
             }
         })
-            .then(res => res.data)
-            .then(data => JSON.parse(data))
-            .then(json => json.albums.items)
+            .then(res => res.data.albums.items)
             .then(items => items.map(item => ({
                 title: item.name,
                 author: item.artists[0].name,

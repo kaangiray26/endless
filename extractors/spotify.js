@@ -34,7 +34,6 @@ const extractor = () => {
                 }
             })
                 .then(res => res.data)
-                .then(data => JSON.parse(data))
                 .then(item => ({
                     title: item.name,
                     author: item.artists[0].name,
@@ -54,7 +53,6 @@ const extractor = () => {
                 }
             })
                 .then(res => res.data)
-                .then(data => JSON.parse(data))
                 .then(item => ({
                     title: "Artist",
                     author: item.name,
@@ -74,7 +72,6 @@ const extractor = () => {
                 }
             })
                 .then(res => res.data)
-                .then(data => JSON.parse(data))
                 .then(item => ({
                     title: item.name,
                     author: item.owner.display_name,
@@ -94,7 +91,6 @@ const extractor = () => {
                 }
             })
                 .then(res => res.data)
-                .then(data => JSON.parse(data))
                 .then(item => ({
                     title: item.name,
                     author: item.artists[0].name,
