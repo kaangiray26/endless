@@ -25,6 +25,7 @@ const extractor = () => {
 
     async function get_post(id, request = null, args = null) {
         let credentials = await auth();
+        if (!credentials) return null;
 
         if (id.startsWith("albums")) {
             return await request.get({
@@ -43,6 +44,7 @@ const extractor = () => {
                     image: item.images[0].url,
                     page: "/discover/spotify/" + item.type + "s/" + item.id,
                 }))
+                .catch(err => null);
         }
 
         if (id.startsWith("artists")) {
@@ -62,6 +64,7 @@ const extractor = () => {
                     image: item.images[0].url,
                     page: "/discover/spotify/" + item.type + "s/" + item.id,
                 }))
+                .catch(err => null);
         }
 
         if (id.startsWith("playlists")) {
@@ -81,6 +84,7 @@ const extractor = () => {
                     image: item.images[0].url,
                     page: "/discover/spotify/" + item.type + "s/" + item.id,
                 }))
+                .catch(err => null);
         }
 
         if (id.startsWith("tracks")) {
@@ -100,6 +104,7 @@ const extractor = () => {
                     image: item.images[0].url,
                     page: "/discover/spotify/" + item.type + "s/" + item.id,
                 }))
+                .catch(err => null);
         }
     }
 

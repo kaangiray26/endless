@@ -21,6 +21,7 @@ const extractor = () => {
 
     async function get_posts(page = 1, request = null, args = null) {
         let credentials = await auth();
+        if (!credentials) return [];
 
         return await request.get({
             url: `https://api.spotify.com/v1/browse/new-releases?limit=12&offset=${(page - 1) * 12}`,
@@ -38,10 +39,7 @@ const extractor = () => {
                 image: item.images[0].url,
                 page: "/discover/spotify/" + item.type + "s/" + item.id,
             })))
-            .catch(err => {
-                console.log(err);
-                return [];
-            });
+            .catch(err => []);
     }
 
     async function get_post() {

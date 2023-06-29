@@ -4,7 +4,8 @@
             <div class="d-flex square p-1 me-1">
                 <img ref="target" class="cover icon" :src="obj.image" @error="placeholder" loading="lazy">
             </div>
-            <div class="d-flex flex-fill align-items-center">
+            <div class="d-flex flex-column align-items-start">
+                <small class="text-muted">{{ obj.author }}</small>
                 <h6 class="text-break p-1 m-0">{{ obj.title }}</h6>
             </div>
         </div>
