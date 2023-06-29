@@ -23,18 +23,18 @@ const extractor = () => {
     }
 
     async function get_post(id, request = null, args = null) {
-        return await fetch("https://www.koreaboo.com" + id)
+        return await fetch(`https://www.koreaboo.com/${id}`)
             .then(res => res.text())
             .then(str => new window.DOMParser().parseFromString(str, "text/html"))
             .then(dom => dom.querySelector("article"))
             .then(item => ({
                 title: item.querySelector("h1").innerText,
                 author: "Koreaboo",
-                url: "https://www.koreaboo.com" + id,
+                url: "https://www.koreaboo.com/" + id,
                 id: id,
                 dt: item.querySelector("time").dateTime,
                 image: item.querySelector("img").src,
-                page: "/discover/koreaboo" + id
+                page: "/discover/koreaboo/" + id
             }))
             .catch(err => null)
     }

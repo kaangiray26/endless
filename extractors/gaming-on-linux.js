@@ -27,7 +27,7 @@ const extractor = () => {
                 id: id,
                 dt: null,
                 image: "/favicon.svg",
-                page: "/discover/gaming-on-linux" + id,
+                page: "/discover/gaming-on-linux/" + id,
             }))
             .catch(err => null);
     }
