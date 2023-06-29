@@ -10,20 +10,16 @@ const extractor = () => {
             .then(dom => [...dom.querySelectorAll("script")])
             .then(scripts => scripts.filter(script => script.text.startsWith('var ytInitialData')).pop())
             .then(script => JSON.parse(new Function(script.innerHTML + "return ytInitialData")()))
-            .then(data => {
-                console.log(data);
-                return data;
-            })
-            // .then(dom => [...dom.querySelectorAll("ytm-item-section-renderer")])
-            // .then(items => items.map(item => ({
-            //     title: item.querySelector(".media-item-headline").innerText,
-            //     author: item.querySelector(".media-item-metadata .ytm-badge-and-byline-item-byline").innerText,
-            //     url: "https://youtube.com/watch?v=" + item.querySelector("a").search.slice(3),
-            //     id: item.querySelector("a").search.slice(3),
-            //     dt: null,
-            //     image: item.querySelector("img").src,
-            //     page: "/discover/youtube/" + item.querySelector("a").search.slice(3),
-            // })))
+            .then(data => data.contents.singleColumnBrowseResultsRenderer.tabs[0].tabRenderer.content.sectionListRenderer.contents)
+            .then(items => items.map(item => ({
+                title: item.itemSectionRenderer.contents[0].videoWithContextRenderer.headline.runs[0].text,
+                author: item.itemSectionRenderer.contents[0].videoWithContextRenderer.shortBylineText.runs[0].text,
+                url: "https://m.youtube.com/watch?v=" + item.itemSectionRenderer.contents[0].videoWithContextRenderer.navigationEndpoint.watchEndpoint.videoId,
+                id: item.itemSectionRenderer.contents[0].videoWithContextRenderer.navigationEndpoint.watchEndpoint.videoId,
+                dt: null,
+                image: item.itemSectionRenderer.contents[0].videoWithContextRenderer.thumbnail.thumbnails.slice(-1)[0].url,
+                page: "/discover/youtube/" + item.itemSectionRenderer.contents[0].videoWithContextRenderer.navigationEndpoint.watchEndpoint.videoId,
+            })))
             .catch(err => []);
     }
 
