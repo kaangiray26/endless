@@ -1,20 +1,18 @@
 <template>
-    <div class="card border-0 theme-shadow rounded">
+    <div class="card border-0">
         <div class="card-body p-0">
-            <div class="border-bottom px-2 py-1">
-                <span class="fw-bold">{{ obj.author }}</span>
+            <div class="d-flex flex-column align-items-start p-3 pb-0">
+                <small class="text-muted">{{ obj.author }}</small>
+                <h6 class="text-break m-0">{{ obj.title }}</h6>
             </div>
-            <div class="px-2 py-1">
-                <span>{{ obj.title }}</span>
+            <div class="d-flex px-3 py-1">
+                <small class="me-2">🚀 {{ points }} pts</small>
+                <small>📝 {{ comments.length }} cts</small>
             </div>
-            <div class="d-flex square">
-                <img class="img-post" :src="obj.image" @error="placeholder">
+            <div class="d-flex square p-3">
+                <img class="img-post rounded theme-shadow" :src="obj.image" @error="placeholder">
             </div>
-            <div class="d-flex justify-content-between bg-dark">
-                <span class="text-light font-monospace ms-2">{{ points }} pts</span>
-                <span class="text-light font-monospace me-2">{{ comments.length }} cts</span>
-            </div>
-            <div class="d-flex justify-content-around bg-light">
+            <div class="d-flex justify-content-around rounded bg-light mx-3 mb-3">
                 <button type="button" class="btn btn-touch bi"
                     :class="{ 'bi-heart-fill': is_upvoted, 'bi-heart': !is_upvoted }" @click="upvote"></button>
                 <button type="button" class="btn btn-touch bi bi-chat"></button>

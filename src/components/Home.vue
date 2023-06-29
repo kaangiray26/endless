@@ -13,9 +13,14 @@
         <ul class="list-group list-group-flush border-0 pt-0">
             <Post :obj="item" />
             <li v-for="post in posts" class="list-group-item border rounded p-0 mt-3">
-                <div class="d-flex flex-column p-theme">
-                    <h6 class="text-break m-0">{{ post.post }}</h6>
-                    <small class="text-muted">{{ get_details(post) }}</small>
+                <div class="d-flex">
+                    <div class="d-flex square p-1 me-1">
+                        <img ref="target" class="cover icon" src="/favicon.svg" loading="lazy">
+                    </div>
+                    <div class="d-flex flex-column align-items-start p-1 ps-0">
+                        <small class="text-muted">{{ get_details(post) }}</small>
+                        <h6 class="text-break m-0">{{ post.post }}</h6>
+                    </div>
                 </div>
                 <div class="d-flex justify-content-around bg-light rounded">
                     <button type="button" class="btn btn-touch bi bi-heart invisible"></button>
@@ -84,12 +89,12 @@ function format_date(dt) {
         hour12: true,
     })
 
-    return `${date_string} ${time_string}`
+    return `🕐 ${date_string} ${time_string}`
 }
 
 function get_details(post) {
     if (sort.value == 'hot') {
-        return `${post.count} pts`
+        return `🚀 ${post.count} pts`
     }
 
     if (sort.value == 'new') {
@@ -97,11 +102,11 @@ function get_details(post) {
     }
 
     if (sort.value == 'top') {
-        return `${post.count} pts`
+        return `🚀 ${post.count} pts`
     }
 
     if (sort.value == 'controversial') {
-        return `${post.count} comments`
+        return `📝 ${post.count} comments`
     }
 }
 
