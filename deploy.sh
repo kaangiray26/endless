@@ -23,6 +23,14 @@ done
 printf "\nCopying README to docs...\n"
 cp README.md ./docs/
 
+# Copy list.json to docs
+printf "\nCopying list.json to docs...\n"
+cp list.json ./docs/
+
+# Copy docker-compose.yml to docs
+printf "\nCopying docker-compose.yml to docs...\n"
+cp server/docker-compose.yml ./docs/server/
+
 # Push to git
 printf "\nPushing to git...\n"
 git add -A
