@@ -14,7 +14,7 @@
             <Post :obj="item" />
             <li v-for="post in posts" class="list-group-item border rounded p-0 mt-3">
                 <div class="d-flex flex-column p-theme">
-                    <h6 class="m-0">{{ post.post }}</h6>
+                    <h6 class="text-break m-0">{{ post.post }}</h6>
                     <small class="text-muted">{{ get_details(post) }}</small>
                 </div>
                 <div class="d-flex justify-content-around bg-light rounded">

@@ -5,7 +5,7 @@
                 <img ref="target" class="cover icon" :src="obj.image" @error="placeholder" loading="lazy">
             </div>
             <div class="d-flex flex-fill align-items-center">
-                <h6 class="m-0">{{ obj.title }}</h6>
+                <h6 class="text-break p-1 m-0">{{ obj.title }}</h6>
             </div>
         </div>
         <div class="d-flex justify-content-around bg-light rounded">
