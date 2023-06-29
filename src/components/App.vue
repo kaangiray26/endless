@@ -23,4 +23,37 @@ const router = useRouter();
 async function reload() {
     router.go();
 }
+
+async function get_access() {
+    let response = await fetch("https://open.spotify.com/search")
+        .then(res => res.text())
+        .then(str => new DOMParser().parseFromString(str, "text/html"))
+        .then(dom => dom.querySelector("script#session"))
+        .then(script => script.innerHTML)
+        .then(json => JSON.parse(json))
+        .catch(err => {
+            console.log(err);
+            return null;
+        });
+
+    if (!response) {
+        console.log("Failed to get access token");
+        return;
+    }
+
+    let action = await fetch("https://api.spotify.com/v1/playlists/3cEYpjA9oz9GiPac4AsH4n", {
+        headers: {
+            Authorization: `Bearer ${response.accessToken}`
+        }
+    })
+        .then(res => res.json())
+        .catch(err => {
+            console.log(err);
+            return null;
+        });
+
+    console.log(action);
+}
+
+get_access();
 </script>
