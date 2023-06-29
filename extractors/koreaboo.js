@@ -16,7 +16,7 @@ const extractor = () => {
                 url: "https://www.koreaboo.com/news" + item.querySelector("a").pathname,
                 id: item.querySelector("a").pathname,
                 dt: item.querySelector("time").dateTime,
-                image: item.querySelector("img").currentSrc,
+                image: item.querySelector("img").dataset.srcset.split(",").slice(-1)[0].split(" ")[0],
                 page: "/discover/koreaboo" + item.querySelector("a").pathname
             })))
     }
