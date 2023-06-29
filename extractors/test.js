@@ -1,9 +1,9 @@
 const extractor = () => {
-    async function get_posts() {
+    async function get_posts(page = 1, request = null, args = null) {
         //
     }
 
-    async function get_post() {
+    async function get_post(id, request = null, args = null) {
         //
     }
 
