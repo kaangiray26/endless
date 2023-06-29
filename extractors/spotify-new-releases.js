@@ -40,7 +40,10 @@ const extractor = () => {
                 image: item.images[0].url,
                 page: "/discover/spotify/" + item.type + "s/" + item.id,
             })))
-            .catch(err => []);
+            .catch(err => {
+                console.log(err);
+                return [];
+            });
     }
 
     async function get_post() {
