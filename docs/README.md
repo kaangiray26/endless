@@ -55,13 +55,13 @@ Download the APK from [GitHub Releases](https://github.com/kaangiray26/endless/r
 - [ ] The Onion
 
 ## Starting the server
-You can use the [docker-compose.yml](server/docker-compose.yml) file to start the server.
+You can use the [docker-compose.yml](docs/server/docker-compose.yml) file to start the server.
 
 ## How to contribute?
 You can contribute to Endless by adding support for new websites or by improving the existing codebase. If you want to add support for a new website, take a look at the existing extractors. Usually, each website has its own extractor with two methods inside the [extractors](https://github.com/kaangiray26/endless/tree/main/extractors) directory. If you want to improve the existing codebase, you can do so by creating a pull request.
 
 ## Extractors
-Take a look at the [extractor list](list.json) below to see which websites are supported at the moment.
+Take a look at the [extractor list](docs/list.json) below to see which websites are supported at the moment.
 
 Prebuilt versions of the extractors are also located in the [min](https://github.com/kaangiray26/endless/tree/main/docs/min) directory.
 * For example: [Hacker News](min/hacker-news.min.js)
