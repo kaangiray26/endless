@@ -16,13 +16,13 @@ const extractor = () => {
                 url: "https://www.koreaboo.com/news" + item.querySelector("a").pathname,
                 id: item.querySelector("a").pathname,
                 dt: item.querySelector("time").dateTime,
-                image: item.querySelector("img").src,
+                image: item.querySelector("img").currentSrc,
                 page: "/discover/koreaboo" + item.querySelector("a").pathname
             })))
     }
 
     async function get_post(id, request = null, args = null) {
-        //
+        return null
     }
 
     return {
