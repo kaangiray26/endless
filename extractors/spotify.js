@@ -26,7 +26,7 @@ const extractor = () => {
     async function get_post(id, request = null, args = null) {
         let credentials = await auth();
 
-        if (id.startswith("albums")) {
+        if (id.startsWith("albums")) {
             return await request.get({
                 url: `https://api.spotify.com/v1/${id}`,
                 headers: {
