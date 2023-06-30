@@ -59,8 +59,7 @@
     "youtube-trending": {
         "name": "YouTube Trending",
         "image": "https://m.youtube.com/static/favicon.ico",
-        "url": "https://kaangiray26.github.io/endless/min/youtube-trending.min.js",
-        "hidden": true
+        "url": "https://kaangiray26.github.io/endless/min/youtube-trending.min.js"
     },
     "wikipedia": {
         "name": "Wikipedia",
