@@ -26,7 +26,7 @@ const extractor = () => {
                 url: dom.head.querySelector("meta[property='og:url']").content,
                 id: id,
                 dt: null,
-                image: "/favicon.svg",
+                image: "/images/bitmap_dark.png",
                 page: "/discover/gaming-on-linux/" + id,
             }))
             .catch(err => null);

@@ -11,7 +11,7 @@ const extractor = () => {
                 url: `https://en.m.wikipedia.org/?curid=${post.id}`,
                 id: post.id,
                 dt: null,
-                image: "/favicon.svg",
+                image: "/images/bitmap_dark.png",
                 page: "/discover/wikipedia/" + post.id,
             })))
             .catch(err => []);
@@ -29,7 +29,7 @@ const extractor = () => {
                 url: "https://en.wikipedia.org/?curid=" + id,
                 id: id,
                 dt: null,
-                image: "/favicon.svg",
+                image: "/images/bitmap_dark.png",
                 page: "/discover/wikipedia/" + id,
             }))
             .catch(err => null);

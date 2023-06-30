@@ -15,7 +15,7 @@
             <li v-for="post in posts" class="list-group-item border rounded p-0 mt-3">
                 <div class="d-flex">
                     <div class="d-flex square p-1 me-1">
-                        <img ref="target" class="cover icon" src="/favicon.svg" loading="lazy">
+                        <img ref="target" class="cover icon" src="/images/bitmap_dark.png" loading="lazy">
                     </div>
                     <div class="d-flex flex-column align-items-start p-1 ps-0">
                         <small class="text-muted">{{ get_details(post) }}</small>
@@ -51,7 +51,7 @@ const item = {
     url: "https://gist.github.com/kaangiray26/7be9145c92d228cbbec67d4b7089188a",
     id: "7be9145c92d228cbbec67d4b7089188a",
     dt: 1687982255,
-    image: "https://raw.githubusercontent.com/kaangiray26/endless/main/src/public/favicon.png",
+    image: "/images/bitmap.png",
     page: "/discover/gist/7be9145c92d228cbbec67d4b7089188a",
 }
 

@@ -48,8 +48,10 @@ const is_upvoted = ref(false);
 const upvoting = ref(false);
 const saving = ref(false);
 
+const default_img = "/images/bitmap_dark.png";
+
 async function placeholder(obj) {
-    obj.target.src = "/favicon.svg";
+    obj.target.src = default_img;
 }
 
 async function comments() {
@@ -80,7 +82,7 @@ async function get_preview() {
     img_loaded.value = true;
 
     // If the image is already loaded, return
-    if (props.obj.image != "/favicon.svg") {
+    if (props.obj.image != default_img) {
         return
     }
 
@@ -90,7 +92,7 @@ async function get_preview() {
         .then(res => res.data)
         .then(str => new DOMParser().parseFromString(str, "text/html"))
         .then(dom => dom.head.querySelector("meta[property='og:image']").content)
-        .catch(err => "/favicon.svg");
+        .catch(err => default_img);
 }
 
 async function redirect() {

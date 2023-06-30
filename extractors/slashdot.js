@@ -11,7 +11,7 @@ const extractor = () => {
                 id: post.querySelector(".story-title>a").pathname.split("/").slice(0, -1).join("/"),
                 dt: post.querySelector("time").dateTime,
                 points: 0,
-                image: "/favicon.svg",
+                image: "/images/bitmap_dark.png",
                 page: "/discover/slashdot" + post.querySelector(".story-title>a").pathname.split("/").slice(0, -1).join("/")
             })))
             .catch(err => []);
@@ -26,7 +26,7 @@ const extractor = () => {
                 url: data.canonical_url,
                 id: id,
                 dt: data.time,
-                image: "/favicon.svg",
+                image: "/images/bitmap_dark.png",
                 page: "/discover/slashdot/" + id,
             }))
             .catch(err => null);

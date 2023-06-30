@@ -12,7 +12,7 @@ const extractor = () => {
                 url: "https://gist.github.com/" + data.owner.login + "/" + id,
                 id: id,
                 dt: data.created_at,
-                image: "/favicon.svg",
+                image: "/images/bitmap_dark.png",
                 page: "/discover/gist/" + id
             }))
             .catch(err => null);

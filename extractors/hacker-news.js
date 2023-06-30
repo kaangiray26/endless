@@ -10,7 +10,7 @@ const extractor = () => {
                 url: post.querySelector(".titleline>a").href,
                 id: post.id,
                 dt: post.nextSibling.querySelector(".age").title,
-                image: "/favicon.svg",
+                image: "/images/bitmap_dark.png",
                 page: "/discover/hacker-news/" + post.id
             })))
             .catch(err => []);
@@ -26,7 +26,7 @@ const extractor = () => {
                 url: dom.querySelector(".titleline > a").href,
                 id: id,
                 dt: dom.querySelector(".age").title,
-                image: "/favicon.svg",
+                image: "/images/bitmap_dark.png",
                 page: "/discover/hacker-news/" + id
             }))
     }
