@@ -33,7 +33,7 @@
 
 <script setup>
 import { onActivated, ref } from 'vue';
-// import { Filesystem, Directory } from '@capacitor/filesystem';
+import { Filesystem, Directory } from '@capacitor/filesystem';
 import { Share } from '@capacitor/share';
 
 const pos = 9424;

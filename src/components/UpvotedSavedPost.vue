@@ -156,7 +156,6 @@ async function upvote() {
 }
 
 onBeforeMount(() => {
-    console.log("onBeforeMount", props.obj);
     check_upvoted();
     check_saved();
 })
