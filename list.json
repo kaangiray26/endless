@@ -20,6 +20,17 @@
         "url": "https://kaangiray26.github.io/endless/min/gist.min.js",
         "hidden": true
     },
+    "github": {
+        "name": "GitHub",
+        "image": "https://github.githubassets.com/pinned-octocat.svg",
+        "url": "https://kaangiray26.github.io/endless/min/github.min.js",
+        "hidden": true
+    },
+    "github-trending": {
+        "name": "GitHub Trending",
+        "image": "https://github.githubassets.com/pinned-octocat.svg",
+        "url": "https://kaangiray26.github.io/endless/min/github-trending.min.js"
+    },
     "hacker-news": {
         "name": "Hacker News",
         "image": "https://news.ycombinator.com/favicon.ico",
