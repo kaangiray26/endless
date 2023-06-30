@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 
 import Home from "/components/Home.vue"
 import Discover from "/components/Discover.vue"
+import Backup from "/components/Backup.vue"
 
 import Feed from "/pages/Feed.vue"
 import Post from "/pages/Post.vue"
@@ -50,6 +51,10 @@ const routes = [
                 component: ProfileCommented
             }
         ]
+    },
+    {
+        path: "/backup",
+        component: Backup
     }
 ];
 

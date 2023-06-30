@@ -136,6 +136,10 @@ textarea {
     visibility: hidden;
 }
 
+.circle {
+    border-radius: 50%;
+}
+
 @keyframes loading {
     0% {
         width: 25%;

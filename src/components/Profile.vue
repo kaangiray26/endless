@@ -12,8 +12,14 @@
         <div class="input-group mt-2">
             <span class="input-group-text" :class="{ 'bi bi-circle': !reloaded, 'bi bi-circle-fill': reloaded }"
                 id="basic-addon2"></span>
-            <button type="button" class="btn btn-touch-border click-effect" @click="reload_extractors">Reload
+            <button type="button" class="btn btn-touch-border click-effect flex-fill text-start"
+                @click="reload_extractors">Reload
                 extractors</button>
+        </div>
+        <div class="input-group mt-2">
+            <span class="input-group-text bi bi-save" id="basic-addon2"></span>
+            <button type="button" class="btn btn-touch-border click-effect flex-fill text-start"
+                @click="goto_backup">Backup</button>
         </div>
         <div class="d-flex justify-content-evenly align-items-center mt-3">
             <router-link to="/profile/saved" class="btn btn-touch click-effect"
@@ -39,7 +45,9 @@ const path = computed(() => router.currentRoute.value.path);
 const reloading = ref(false);
 const reloaded = ref(false);
 
-async function reload_extractors(obj) {
+const position = ref(0);
+
+async function reload_extractors() {
     if (reloading.value) return;
 
     reloading.value = true;
@@ -56,6 +64,10 @@ async function reload_extractors(obj) {
 
     reloading.value = false;
     reloaded.value = true;
+}
+
+async function goto_backup() {
+    router.push("/backup")
 }
 
 async function change_server(obj) {
