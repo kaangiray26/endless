@@ -36,23 +36,25 @@ Download the APK from [GitHub Releases](https://github.com/kaangiray26/endless/r
 
 ## Features
 * No account needed
-* Save posts
-* Upvote posts
-* Comment on posts
+* Save posts to read later
+* Upvote and comment on posts
 * Remove upvotes and comments if needed
-* Fuzzy search on post titles on feed
+* Fuzzy search on post titles
+* Backup and restore your data
 
-## Supported Websites
-- [x] Wikipedia
-- [x] Hacker News
-- [x] GamingOnLinux
+## Supported Feeds
 - [x] Cumhuriyet
 - [x] Darknet Diaries
-- [x] Slashdot
+- [x] GamingOnLinux
+- [x] GitHub Trending
+- [x] Hacker News
+- [x] Koreaboo
 - [x] Quanta Magazine
 - [x] Reddit
-- [ ] Ars Technica
-- [ ] The Onion
+- [x] Slashdot
+- [x] Spotify New Releases
+- [x] YouTube Trending
+- [x] Wikipedia
 
 ## Starting the server
 You can use the [docker-compose.yml](server/docker-compose.yml) file to start the server.
