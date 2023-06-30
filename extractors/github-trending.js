@@ -7,7 +7,7 @@ const extractor = () => {
                 .then(dom => [...dom.querySelectorAll("article")])
                 .then(items => items.map(item => ({
                     title: [...item.querySelector("h2 a").childNodes].slice(-1)[0].textContent.trim(),
-                    author: [...item.querySelector("h2 a").childNodes].slice(-2)[0].innerText,
+                    author: [...item.querySelector("h2 a").childNodes].slice(-2)[0].innerText.split("/")[0].trim(),
                     url: "https://github.com" + item.querySelector("h2 a").pathname,
                     id: item.querySelector("h2 a").pathname,
                     dt: null,
