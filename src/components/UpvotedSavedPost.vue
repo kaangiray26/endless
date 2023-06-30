@@ -161,7 +161,6 @@ onBeforeMount(() => {
 })
 
 onActivated(() => {
-    console.log("onActivated", props.obj);
     check_upvoted();
     check_saved();
 })
