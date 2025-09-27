@@ -1,0 +1,13 @@
+{
+  "appId": "endless.buzl.uk",
+  "appName": "Endless",
+  "webDir": "src/dist",
+  "server": {
+    "androidScheme": "https"
+  },
+  "plugins": {
+    "CapacitorHttp": {
+      "enabled": true
+    }
+  }
+}

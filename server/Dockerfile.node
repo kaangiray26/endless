@@ -1,0 +1,16 @@
+FROM node:19-alpine
+WORKDIR /endless
+
+# Copy files
+ADD www ./www
+ADD js ./js
+ADD package.json ./
+ADD index.js ./
+
+# RUN npm install
+# If you are building your code for production
+RUN npm install
+
+EXPOSE 3000
+
+CMD ["node", "index.js"]
